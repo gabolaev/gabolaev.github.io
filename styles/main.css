@@ -3,11 +3,6 @@
     src: url("../fonts/HelveticaNeue-Bold.ttf");
 }
 
-@font-face {
-    font-family: "HelveticaNeue-BoldItalic";
-    src: url("../fonts/HelveticaNeue-BoldItalic");
-}
-
 html,
 body {
     min-height: 6%;
