@@ -1,0 +1,56 @@
+@font-face {
+    font-family: "HelveticaNeue-Bold";
+    src: url("../fonts/HelveticaNeue-Bold.ttf");
+}
+
+@font-face {
+    font-family: "HelveticaNeue-BoldItalic";
+    src: url("../fonts/HelveticaNeue-BoldItalic");
+}
+
+html,
+body {
+    min-height: 6%;
+    min-width: 54%;
+    margin: 40pt auto auto auto;
+    padding: 10pt;
+    display: flex;
+    color: white;
+    flex-direction: column;
+    background-color: black;
+    font-family: 'HelveticaNeue-Bold';
+}
+
+a {
+    font-family: 'HelveticaNeue-BoldItalic';
+    color: white;
+}
+
+.hello {
+    font-size: 30pt;
+}
+
+.learn-me {
+    font-size: 15pt;
+    margin-top: 30pt;
+}
+
+.links {
+    margin-top: 10pt;
+}
+
+.links img {
+    height: 27pt;
+    margin-right: 1pt;
+}
+
+.write-me {
+    margin-top: 25pt;
+    font-size: 15pt;
+}
+
+.email {
+    font-family: 'HelveticaNeue-BoldItalic';
+    margin-top: 10pt;
+    font-size: 15pt;
+}
