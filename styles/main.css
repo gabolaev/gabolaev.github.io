@@ -25,7 +25,7 @@ body {
 @media (max-height: 580px) {
     html,
     body {
-        margin-top: 40pt;
+        margin-top: 30pt;
     }
 }
 
