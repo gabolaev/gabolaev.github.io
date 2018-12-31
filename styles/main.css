@@ -5,15 +5,28 @@
 
 html,
 body {
-    min-height: 6%;
     min-width: 54%;
-    margin: 40pt auto auto auto;
-    padding: 10pt;
+    margin: 65pt auto auto auto;
+    padding: 0 0 0 10pt;
     display: flex;
     color: white;
     flex-direction: column;
     background-color: black;
     font-family: 'HelveticaNeue-Bold';
+}
+
+@media (max-width: 677px) {
+    html,
+    body {
+        margin-left: 1pt;
+    }
+}
+
+@media (max-height: 580px) {
+    html,
+    body {
+        margin-top: 40pt;
+    }
 }
 
 a {
