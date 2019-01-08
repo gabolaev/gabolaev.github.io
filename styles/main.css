@@ -31,8 +31,9 @@ body {
 }
 
 a {
-    font-family: 'HelveticaNeue-BoldItalic';
+    font-family: 'HelveticaNeue-Bold';
     color: white;
+    text-decoration: none;
 }
 
 .hello {

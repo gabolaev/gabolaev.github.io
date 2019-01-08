@@ -8,19 +8,19 @@
 
 const TYPING_SPEED = 75
 
-function randomInRange(start, end){
+function randomInRange(start, end) {
     return Math.floor(Math.random() * (end - start + 1) + start);
 }
 
-function renderTypeWriterText(text, selector, speed, resolve, index=0) {
+function renderTypeWriterText(text, selector, speed, resolve, index = 0) {
     if (index != text.length) {
         document.querySelector(selector).innerHTML += text.charAt(index);
         setTimeout(
-            renderTypeWriterText, 
-            speed=speed+randomInRange(-5, 3), 
-            text, 
-            selector, 
-            speed, 
+            renderTypeWriterText,
+            speed += randomInRange(-5, 3),
+            text,
+            selector,
+            speed,
             resolve,
             ++index,
         );
@@ -30,14 +30,14 @@ function renderTypeWriterText(text, selector, speed, resolve, index=0) {
 }
 
 const hello = document.createElement("div");
-hello.className="hello";
+hello.className = "hello";
 document.body.appendChild(hello);
 
 let p1 = new Promise((resolve, _) => {
     renderTypeWriterText(
-        text="hello, i am george!", 
-        selector=".hello", 
-        speed=TYPING_SPEED,
+        text = "hello, i am george!",
+        selector = ".hello",
+        speed = TYPING_SPEED,
         resolve,
     );
 })
@@ -45,16 +45,16 @@ let p1 = new Promise((resolve, _) => {
 
 p1.then(() => {
     const learnMe = document.createElement("div");
-    learnMe.className="learn-me";
+    learnMe.className = "learn-me";
     document.body.appendChild(learnMe);
 
     let p2 = new Promise((resolve, _) => {
         setTimeout(
             renderTypeWriterText,
-            speed=500,
-            text="about me:", 
-            selector=".learn-me", 
-            speed=TYPING_SPEED,
+            speed = 500,
+            text = "about me:",
+            selector = ".learn-me",
+            speed = TYPING_SPEED,
             resolve,
         );
     });
@@ -72,11 +72,11 @@ p1.then(() => {
         ];
 
         const links = document.createElement("div");
-        links.className="links";
+        links.className = "links";
         document.body.appendChild(links);
-        
+
         let p3 = new Promise((resolve, _) => {
-            function recursive(index=0) {
+            function recursive(index = 0) {
                 if (index != linksMapping.length) {
                     links.innerHTML += `<a href="${linksMapping[index][1]}"><img src="${linksMapping[index][0]}"></a>`;
                     setTimeout(recursive, 120, ++index);
@@ -88,17 +88,18 @@ p1.then(() => {
         });
 
         p3.then(() => {
-            const writeMe = document.createElement("div");
-            writeMe.className="write-me";
+            const writeMe = document.createElement("a");
+            writeMe.className = "write-me";
+            writeMe.href = "mailto:gabolaev98@gmail.com";
             document.body.appendChild(writeMe);
             
             setTimeout(
                 renderTypeWriterText,
-                speed=300,
-                text="should we talk about something?", 
-                selector=".write-me", 
-                speed=TYPING_SPEED,
-                () => {},
+                speed = 300,
+                text = "should we talk about something?",
+                selector = ".write-me",
+                speed = TYPING_SPEED,
+                () => { },
             );
         });
     });
