@@ -40,9 +40,13 @@ a {
     font-size: 30pt;
 }
 
-.learn-me {
+.developer {
+    margin-top: 1pt;
+}
+
+.about-me {
     font-size: 15pt;
-    margin-top: 30pt;
+    margin-top: 40pt;
 }
 
 .links {
@@ -55,7 +59,7 @@ a {
 }
 
 .write-me {
-    margin-top: 25pt;
+    margin-top: 15pt;
     margin-right: 25pt;
     font-size: 15pt;
 }
