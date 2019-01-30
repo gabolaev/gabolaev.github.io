@@ -69,7 +69,7 @@ helloRender.then(() => {
             setTimeout(
                 renderTypeWriterText,
                 speed = 500,
-                text = "about me:",
+                text = "find me here:",
                 selector = ".about-me",
                 speed = TYPING_SPEED,
                 resolve,
