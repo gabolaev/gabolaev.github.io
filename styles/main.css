@@ -16,20 +16,6 @@ body {
     font-family: 'HelveticaNeue-Bold';
 }
 
-@media (max-width: 677px) {
-    html,
-    body {
-        margin-left: 1pt;
-    }
-}
-
-@media (max-height: 580px) {
-    html,
-    body {
-        margin-top: 30pt;
-    }
-}
-
 a {
     font-family: 'HelveticaNeue-Bold';
     color: white;
@@ -41,7 +27,7 @@ a {
 }
 
 .developer {
-    margin-top: 1pt;
+    font-size: 10pt;
 }
 
 .about-me {
@@ -62,4 +48,29 @@ a {
     margin-top: 15pt;
     margin-right: 25pt;
     font-size: 15pt;
+}
+
+@media (max-width: 677px) {
+    html,
+    body {
+        margin-left: 2pt;
+    }
+}
+
+@media (max-width: 355px) {
+    .links img {
+        height: 24pt;
+    }
+    
+    html,
+    body {
+        margin-left: -1pt;
+    }
+}
+
+@media (max-height: 450px) {
+    html,
+    body {
+        margin-top: 15pt;
+    }
 }
