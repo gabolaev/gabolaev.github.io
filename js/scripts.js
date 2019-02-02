@@ -79,7 +79,7 @@ helloRender.then(() => {
         aboutRender.then(() => {
 
             const linksMapping = [
-                ["static/tg.png", "https://t.me/gabolaev"],
+                ["static/tg.png", "tg://resolve?domain=gabolaev"],
                 ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
                 ["static/cv.png", "https://visualcv.com/gabolaev"],
                 ["static/gh.png", "https://github.com/gabolaev"],
