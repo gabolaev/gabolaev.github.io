@@ -1,4 +1,4 @@
-const TYPING_SPEED = 75
+const TYPING_SPEED = 65
 
 function randomInRange(start, end) {
     return Math.floor(Math.random() * (end - start + 1) + start);
@@ -43,15 +43,20 @@ helloRender.then(() => {
     let developerRender = new Promise((resolve, _) => {
         setTimeout(
             renderTypeWriterText,
-            speed = 500,
-            text = "the developer",
+            speed = 1000,
+            text = "backend developer",
             selector = ".developer",
-            speed = TYPING_SPEED,
+            speed = -20,
             resolve,
         );
     });
 
     developerRender.then(() => {
+        const mail_logo = document.createElement("img");
+        mail_logo.src="static/mrg_red.png";
+        mail_logo.className = "mail_logo";
+        developer.appendChild(mail_logo);
+
         const aboutMe = document.createElement("div");
         aboutMe.className = "about-me";
         document.body.appendChild(aboutMe);
@@ -61,7 +66,7 @@ helloRender.then(() => {
             setTimeout(
                 renderTypeWriterText,
                 speed = 500,
-                text = "find me here",
+                text = "showing signs of life at",
                 selector = ".about-me",
                 speed = TYPING_SPEED,
                 resolve,
@@ -106,7 +111,7 @@ helloRender.then(() => {
                 setTimeout(
                     renderTypeWriterText,
                     speed = 300,
-                    text = "have some thoughts?",
+                    text = "want to tell me something?",
                     selector = ".write-me",
                     speed = TYPING_SPEED,
                     () => { },
