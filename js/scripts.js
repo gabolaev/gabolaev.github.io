@@ -5,7 +5,7 @@ function randomInRange(start, end) {
 }
 
 function renderTypeWriterText(text, selector, speed, resolve, index = 0) {
-    if (index != text.length) {
+    if (index !== text.length) {
         document.querySelector(selector).innerHTML += text.charAt(index);
         setTimeout(
             renderTypeWriterText,
@@ -79,7 +79,7 @@ window.onload = () => {
                 const linksMapping = [
                     ["static/tg.png", "tg://resolve?domain=gabolaev"],
                     ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
-                    ["static/cv.png", "https://visualcv.com/gabolaev"],
+                    ["static/cv.png", "https://gitconnected.com/gabolaev/resume"],
                     ["static/gh.png", "https://github.com/gabolaev"],
                     ["static/ig.png", "https://www.instagram.com/gabolaev"],
                     ["static/tw.png", "https://twitter.com/georgegabolaev"],
@@ -92,7 +92,7 @@ window.onload = () => {
 
                 let linksRender = new Promise((resolve, _) => {
                     function recursive(index = 0) {
-                        if (index != linksMapping.length) {
+                        if (index !== linksMapping.length) {
                             links.innerHTML +=
                                 `<a href="${linksMapping[index][1]}"><img src="${linksMapping[index][0]}"></a>`;
                             setTimeout(recursive, 120, ++index);
