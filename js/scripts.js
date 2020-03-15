@@ -37,26 +37,26 @@ window.onload = () => {
 
 
     helloRender.then(() => {
-        const developer = document.createElement("div");
-        developer.className = "developer";
-        document.body.appendChild(developer)
+        const engineer = document.createElement("div");
+        engineer.className = "engineer";
+        document.body.appendChild(engineer)
 
-        let developerRender = new Promise((resolve, _) => {
+        let engineerRender = new Promise((resolve, _) => {
             setTimeout(
                 renderTypeWriterText,
                 speed = 1000,
-                text = "backend developer",
-                selector = ".developer",
+                text = "backend engineer",
+                selector = ".engineer",
                 speed = -20,
                 resolve,
             );
         });
 
-        developerRender.then(() => {
+        engineerRender.then(() => {
             const mail_logo = document.createElement("img");
             mail_logo.src="static/mrg_red.png";
             mail_logo.className = "mail_logo";
-            developer.appendChild(mail_logo);
+            engineer.appendChild(mail_logo);
 
             const aboutMe = document.createElement("div");
             aboutMe.className = "about-me";
