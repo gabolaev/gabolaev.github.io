@@ -45,7 +45,7 @@ window.onload = () => {
             setTimeout(
                 renderTypeWriterText,
                 speed = 1000,
-                text = "backend engineer",
+                text = "software engineer",
                 selector = ".engineer",
                 speed = -20,
                 resolve,
