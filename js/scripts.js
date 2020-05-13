@@ -106,7 +106,7 @@ window.onload = () => {
                 linksRender.then(() => {
                     const writeMe = document.createElement("a");
                     writeMe.className = "write-me";
-                    writeMe.href = "mailto:gabolaev98@gmail.com";
+                    writeMe.href = "mailto:george@gabolaev.com";
                     document.body.appendChild(writeMe);
 
                     setTimeout(
