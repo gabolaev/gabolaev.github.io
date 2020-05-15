@@ -77,12 +77,12 @@ window.onload = () => {
             aboutRender.then(() => {
 
                 const linksMapping = [
-                    ["static/tg.png", "tg://resolve?domain=gabolaev"],
-                    ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
+                    ["static/tg.png", "https://tele.ga/gabolaev"],
                     ["static/cv.png", "https://gitconnected.com/gabolaev/resume"],
+                    ["static/bl.png", "https://tele.ga/verbosegeorge"],
                     ["static/gh.png", "https://github.com/gabolaev"],
+                    ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
                     ["static/ig.png", "https://www.instagram.com/gabolaev"],
-                    ["static/tw.png", "https://twitter.com/georgegabolaev"],
                     ["static/vk.png", "https://vk.com/gabolaev"],
                 ];
 
