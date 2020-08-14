@@ -1,4 +1,4 @@
-const TYPING_SPEED = 65
+const TYPING_SPEED = 50
 
 function randomInRange(start, end) {
     return Math.floor(Math.random() * (end - start + 1) + start);
@@ -27,7 +27,9 @@ window.onload = () => {
     document.body.appendChild(hello);
 
     let helloRender = new Promise((resolve, _) => {
-        renderTypeWriterText(
+        setTimeout(
+            renderTypeWriterText,
+            speed = 1000,
             text = "i am george!",
             selector = ".hello",
             speed = TYPING_SPEED,
@@ -83,7 +85,7 @@ window.onload = () => {
                     ["static/gh.png", "https://github.com/gabolaev"],
                     ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
                     ["static/ig.png", "https://www.instagram.com/gabolaev"],
-                    ["static/vk.png", "https://vk.com/gabolaev"],
+                    ["static/fb.png", "https://fb.com/gabolaev"],
                 ];
 
                 const links = document.createElement("div");
