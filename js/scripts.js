@@ -79,9 +79,9 @@ window.onload = () => {
             aboutRender.then(() => {
 
                 const linksMapping = [
-                    ["static/tg.png", "https://tele.ga/gabolaev"],
+                    ["static/tg.png", "https://t.me/gabolaev"],
                     ["static/cv.png", "https://gitconnected.com/gabolaev/resume"],
-                    ["static/bl.png", "https://tele.ga/verbosegeorge"],
+                    ["static/bl.png", "https://t.me/verbosegeorge"],
                     ["static/gh.png", "https://github.com/gabolaev"],
                     ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
                     ["static/ig.png", "https://www.instagram.com/gabolaev"],
