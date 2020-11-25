@@ -47,7 +47,7 @@ window.onload = () => {
             setTimeout(
                 renderTypeWriterText,
                 speed = 1000,
-                text = "software engineer",
+                text = "software engineer at ",
                 selector = ".engineer",
                 speed = -20,
                 resolve,
@@ -55,10 +55,19 @@ window.onload = () => {
         });
 
         engineerRender.then(() => {
-            const mail_logo = document.createElement("img");
-            mail_logo.src="static/mrg_red.png";
-            mail_logo.className = "mail_logo";
-            engineer.appendChild(mail_logo);
+            const jobSubtitle = document.createElement("span");
+            jobSubtitle.className = "job_title"
+            jobSubtitle.style = "color: #ffdd2d"
+            engineer.appendChild(jobSubtitle);
+
+            setTimeout(
+                renderTypeWriterText,
+                speed = 0,
+                text = "?",
+                selector = ".job_title",
+                speed = -20,
+                ()=>{},
+            );
 
             const aboutMe = document.createElement("div");
             aboutMe.className = "about-me";
