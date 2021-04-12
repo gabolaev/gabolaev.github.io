@@ -63,7 +63,7 @@ window.onload = () => {
             setTimeout(
                 renderTypeWriterText,
                 speed = 0,
-                text = "Tinkoff Investing",
+                text = "Tinkoff Investments",
                 selector = ".job_title",
                 speed = -20,
                 ()=>{},
