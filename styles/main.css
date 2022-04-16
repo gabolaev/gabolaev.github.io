@@ -9,26 +9,26 @@ body {
     margin: 65pt auto auto auto;
     padding: 0 0 0 10pt;
     display: flex;
+    font-size: 10pt;
     user-select: none;
-    color: white;
+    color: black;
     flex-direction: column;
-    background-color: black;
+    background-color: white;
     font-family: 'HelveticaNeue-Bold';
 }
 
 a {
-    font-family: 'HelveticaNeue-Bold';
-    color: white;
+    color: black;
     text-decoration: none;
 }
 
 .hello {
     font-size: 30pt;
+    margin-bottom: 3pt;
 }
 
-.engineer,
-.ninja {
-    font-size: 10pt;
+.tinkoff {
+    color: #ffdd2d;
 }
 
 .kuji {
@@ -36,23 +36,28 @@ a {
 }
 
 .about-me {
-    font-size: 15pt;
     margin-top: 40pt;
 }
 
 .links {
-    margin-top: 10pt;
+    margin-top: 7pt;
 }
 
 .links img {
     height: 27pt;
     margin-right: 5pt;
+    filter: invert(0);
 }
 
-.write-me {
-    margin-top: 15pt;
-    margin-right: 25pt;
-    font-size: 15pt;
+.email-me {
+    margin-top: 20pt;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.btw {
+    margin-top: 30pt;
+    color: #4f4f4f;
 }
 
 @media (max-width: 677px) {
@@ -76,5 +81,49 @@ a {
     html,
     body {
         margin-top: 15pt;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .tinkoff {
+        color: #ffdd2d;
+    }
+    .kuji {
+        color: #aa75ff;
+    }
+    .btw {
+        color: #4f4f4f;
+    }
+    html,
+    body,
+    a {
+        color: white;
+        background: black;
+    }
+    .links img {
+        filter: invert(0);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    .tinkoff {
+        background-color: #ffdd2d;
+        color: black;
+    }
+    .kuji {
+        background-color: #d2b0ff;
+        color: black;
+    }
+    .btw {
+        color: #aeaeae;
+    }
+    html,
+    body,
+    a {
+        color: black;
+        background-color: white;
+    }
+    .links img {
+        filter: invert(1);
     }
 }
