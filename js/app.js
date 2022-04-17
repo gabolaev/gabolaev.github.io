@@ -1,4 +1,4 @@
-const TYPING_SPEED = 70
+const TYPING_SPEED = 86
 const DEFAULT_DELAY = 100
 
 function randomInRange(start, end) {
@@ -57,6 +57,7 @@ function prepareStageElement(parentClassName, className, elementType, withCursor
     if (withCursor) {
         createCursor(element);
     }
+
     (
         document.querySelector("." + parentClassName) ||
         document.body
@@ -75,7 +76,8 @@ function text(parentClassName, className, elementType, text, delay = DEFAULT_DEL
 
 function custom(parentClassName, className, elementType, f, withCursor = true) {
     return () => {
-        return new Promise(f(prepareStageElement(parentClassName, className, elementType, withCursor)))
+        let element = prepareStageElement(parentClassName, className, elementType, withCursor)
+        return new Promise(f(element))
     }
 }
 
@@ -121,9 +123,5 @@ run(
             }
         },
     ),
-    text("body", "btw", "div", "btw, my name is george", 3000),
-    text("body", "btw", "div", "so, what are you waiting for?", 10000),
-    text("body", "btw", "div", "there is nothing more to see here...", 20000),
-    text("body", "btw", "div", "i swear :)", 1000),
-    text("body", "btw", "div", "i hope you have a great day!", 1000),
+    text("body", "btw", "div", "btw, my name is george", 3000)
 )
