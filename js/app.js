@@ -82,12 +82,12 @@ function custom(parentClassName, className, elementType, f, withCursor = true) {
 }
 
 run(
-    text("body", "hello", "div", "hello,", 2000),
-    text("body", "engineer", "div", "i am a software engineer at ", 700),
-    text("engineer", "tinkoff", "span", "Tinkoff Investments", 250),
-    text("body", "ninja", "div", "also i am 忍者 dev at ", 1000),
-    text("ninja", "kuji", "span", "KUJI Podcast", 250),
-    text("body", "about-me", "div", "i left my digital footprints here", 700),
+    text("body", "hello", "div", "hello"),
+    text("body", "engineer", "div", "i am a software engineer at ", 1000),
+    text("engineer", "tinkoff", "span", "Tinkoff Investments", 10),
+    text("body", "ninja", "div", "also i am 忍者 dev at "),
+    text("ninja", "kuji", "span", "KUJI Podcast", 100),
+    text("body", "about-me", "div", "my digital footprints can be found here"),
     custom("body", "links", "div",
         (element) => {
             return (resolve, _) => {
@@ -101,13 +101,17 @@ run(
                     ["static/fb.png", "https://fb.com/gabolaev"],
                 ]
 
+                for (i in linksMapping) {
+                    element.innerHTML += `<a style="display: none" href="${linksMapping[i][1]}"><img src="${linksMapping[i][0]}"></a>`
+                }
+
                 function renderLink(index = 0) {
                     if (index === linksMapping.length) {
                         resolve()
                         return
                     }
-                    element.innerHTML += `<a href="${linksMapping[index][1]}"><img src="${linksMapping[index][0]}"></a>`
-                    setTimeout(renderLink, 0, ++index)
+                    element.childNodes[index].style.display = "unset"
+                    setTimeout(renderLink, 200, ++index)
                 }
 
                 renderLink()
