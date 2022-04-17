@@ -5,6 +5,14 @@ function randomInRange(start, end) {
     return Math.floor(Math.random() * (end - start + 1) + start)
 }
 
+function createCursor(refElement) {
+    const cursor = refElement.insertBefore(document.createElement("span"), null);
+    cursor.id = "cursor";
+    cursor.className = "cursor";
+    cursor.style.fontSize = refElement.style.fontSize;
+    cursor.innerHTML = "|";
+}
+
 function removeCursor() {
     const curs = document.getElementsByClassName("cursor");
     while (curs.length > 0) {
@@ -62,14 +70,6 @@ function text(parentClassName, className, elementType, text, delay = DEFAULT_DEL
             renderText(element, resolve, text, delay)
         })
     }
-}
-
-function createCursor(refElement) {
-    const cursor = refElement.insertBefore(document.createElement("span"), null);
-    cursor.id = "cursor";
-    cursor.className = "cursor";
-    cursor.style.fontSize = refElement.style.fontSize;
-    cursor.innerHTML = "|";
 }
 
 function custom(parentClassName, className, elementType, f, withCursor = true) {
