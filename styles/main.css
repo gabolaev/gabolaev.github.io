@@ -22,6 +22,75 @@ a {
     text-decoration: none;
 }
 
+
+.link {
+
+}
+
+.cursor {
+    font-weight: 10;
+    color: #2E3D48;
+    --cur-color: white;
+    -moz-transition:all 0.5s ease-in-out;
+    -webkit-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    -ms-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+    -moz-animation:blink normal 1.5s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation:blink normal 1.5s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation:blink normal 1.5s infinite ease-in-out;
+    /* IE */
+    animation:blink normal 1.5s infinite ease-in-out;
+    /* Opera */
+}
+
+@keyframes blink {
+    from, to {
+        color: var(--cur-color);
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-moz-keyframes blink {
+    from, to {
+        color: var(--cur-color);
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-webkit-keyframes blink {
+    from, to {
+        color: var(--cur-color);
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-ms-keyframes blink {
+    from, to {
+        color: var(--cur-color);
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-o-keyframes blink {
+    from, to {
+        color: var(--cur-color);
+    }
+    50% {
+        color: transparent;
+    }
+}
+
 .hello {
     font-size: 30pt;
     margin-bottom: 3pt;
@@ -85,6 +154,9 @@ a {
 }
 
 @media (prefers-color-scheme: dark) {
+    .cursor {
+        --cur-color: white;
+    }
     .tinkoff {
         color: #ffdd2d;
     }
@@ -106,6 +178,9 @@ a {
 }
 
 @media (prefers-color-scheme: light) {
+    .cursor {
+        --cur-color: black;
+    }
     .tinkoff {
         background-color: #ffdd2d;
         color: black;

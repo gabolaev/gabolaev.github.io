@@ -5,9 +5,26 @@ function randomInRange(start, end) {
     return Math.floor(Math.random() * (end - start + 1) + start)
 }
 
+function createCursor(refElement) {
+    const cursor = refElement.insertBefore(document.createElement("span"), null);
+    cursor.id = "cursor";
+    cursor.className = "cursor";
+    cursor.style.fontSize = refElement.style.fontSize;
+    cursor.innerHTML = "|";
+}
+
+function removeCursor() {
+    const curs = document.getElementsByClassName("cursor");
+    while (curs.length > 0) {
+        curs[0].parentNode.removeChild(curs[0]);
+    }
+}
+
 function renderTypeWriterText(text, element, resolve, index = 0) {
+    removeCursor()
     if (index !== text.length) {
-        element.innerHTML += text.charAt(index)
+        element.innerHTML += text.charAt(index);
+        createCursor(element);
         setTimeout(
             renderTypeWriterText, TYPING_SPEED + randomInRange(-5, 3),
             text, element, resolve, ++index,
@@ -25,7 +42,7 @@ function renderText(element, resolve, text, delay) {
 }
 
 function run(...stages) {
-    let wait = stages[0]()
+    let wait = stages[0]();
     if (stages.length !== 1) {
         wait.then(() => {
             run(...stages.slice(1))
@@ -33,9 +50,13 @@ function run(...stages) {
     }
 }
 
-function prepareStageElement(parentClassName, className, elementType) {
-    var element = document.createElement(elementType)
+function prepareStageElement(parentClassName, className, elementType, withCursor = true) {
+    const element = document.createElement(elementType);
     element.className = className;
+
+    if (withCursor) {
+        createCursor(element);
+    }
 
     (
         document.querySelector("." + parentClassName) ||
@@ -46,16 +67,16 @@ function prepareStageElement(parentClassName, className, elementType) {
 
 function text(parentClassName, className, elementType, text, delay = DEFAULT_DELAY) {
     return () => {
-        element = prepareStageElement(parentClassName, className, elementType)
+        let element = prepareStageElement(parentClassName, className, elementType)
         return new Promise((resolve, _) => {
             renderText(element, resolve, text, delay)
         })
     }
 }
 
-function custom(parentClassName, className, elementType, f) {
+function custom(parentClassName, className, elementType, f, withCursor = true) {
     return () => {
-        element = prepareStageElement(parentClassName, className, elementType)
+        let element = prepareStageElement(parentClassName, className, elementType, withCursor)
         return new Promise(f(element))
     }
 }
@@ -90,20 +111,21 @@ run(
                         return
                     }
                     element.childNodes[index].style.display = "unset"
-
                     setTimeout(renderLink, 200, ++index)
                 }
+
                 renderLink()
             }
         },
+        false // No caret needed here
     ),
     custom("body", "email-me", "a",
         (element) => {
             return (resolve, _) => {
                 element.href = "mailto:george@gabolaev.com";
-                renderText(element, resolve, "email me")
+                renderText(element, resolve, "email me", 2000)
             }
         },
     ),
-    text("body", "btw", "div", "btw, my name is george"),
+    text("body", "btw", "div", "btw, my name is george", 3000)
 )
