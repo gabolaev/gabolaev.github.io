@@ -20,9 +20,13 @@ function removeCursor() {
     }
 }
 
+function cursorIsOn() {
+    return document.querySelector(".cursor") !== null
+}
+
 function renderTypeWriterText(text, element, resolve, index = 0) {
-    removeCursor()
     if (index !== text.length) {
+        removeCursor()
         element.innerHTML += text.charAt(index);
         createCursor(element);
         setTimeout(
@@ -35,6 +39,9 @@ function renderTypeWriterText(text, element, resolve, index = 0) {
 }
 
 function renderText(element, resolve, text, delay) {
+    removeCursor()
+    createCursor(element)
+
     setTimeout(
         renderTypeWriterText, delay,
         text, element, resolve,
@@ -50,13 +57,9 @@ function run(...stages) {
     }
 }
 
-function prepareStageElement(parentClassName, className, elementType, withCursor = true) {
+function prepareStageElement(parentClassName, className, elementType) {
     const element = document.createElement(elementType);
     element.className = className;
-
-    if (withCursor) {
-        createCursor(element);
-    }
 
     (
         document.querySelector("." + parentClassName) ||
@@ -74,16 +77,21 @@ function text(parentClassName, className, elementType, text, delay = DEFAULT_DEL
     }
 }
 
-function custom(parentClassName, className, elementType, f, withCursor = true) {
+function custom(parentClassName, className, elementType, f) {
     return () => {
-        let element = prepareStageElement(parentClassName, className, elementType, withCursor)
+        let element = prepareStageElement(parentClassName, className, elementType)
         return new Promise(f(element))
     }
 }
 
 run(
     text("body", "hello", "div", "hello", 3000),
-    text("body", "engineer", "div", "i am a software engineer at ", 1000),
+    custom("hello", "waiting", "span", (_) => {
+        return (resolve, _) => {
+            setTimeout(resolve, 1500)
+        }
+    }),
+    text("body", "engineer", "div", "i am a software engineer at ", 500),
     text("engineer", "tinkoff", "span", "Tinkoff Investments", 200),
     text("body", "ninja", "div", "also i am 忍者 dev at "),
     text("ninja", "kuji", "span", "KUJI Podcast", 200),
@@ -91,6 +99,7 @@ run(
     custom("body", "links", "div",
         (element) => {
             return (resolve, _) => {
+                removeCursor()
                 const linksMapping = [
                     ["static/tg.png", "https://t.me/gabolaev"],
                     ["static/ln.png", "https://www.linkedin.com/in/gabolaev"],
@@ -117,7 +126,6 @@ run(
                 renderLink()
             }
         },
-        false // No caret needed here
     ),
     custom("body", "email-me", "a",
         (element) => {

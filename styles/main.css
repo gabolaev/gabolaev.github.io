@@ -22,32 +22,28 @@ a {
     text-decoration: none;
 }
 
-
-.link {
-
-}
-
 .cursor {
-    font-weight: 10;
     color: #2E3D48;
     --cur-color: white;
-    -moz-transition:all 0.5s ease-in-out;
-    -webkit-transition:all 0.5s ease-in-out;
-    -o-transition:all 0.5s ease-in-out;
-    -ms-transition:all 0.5s ease-in-out;
-    transition:all 0.5s ease-in-out;
-    -moz-animation:blink normal 1.5s infinite ease-in-out;
+    text-decoration: none;
+    -moz-transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    -moz-animation: blink normal 1.5s infinite;
     /* Firefox */
-    -webkit-animation:blink normal 1.5s infinite ease-in-out;
+    -webkit-animation: blink normal 1.5s infinite;
     /* Webkit */
-    -ms-animation:blink normal 1.5s infinite ease-in-out;
+    -ms-animation: blink normal 1.5s infinite;
     /* IE */
-    animation:blink normal 1.5s infinite ease-in-out;
+    animation: blink normal 1.5s infinite;
     /* Opera */
 }
 
 @keyframes blink {
-    from, to {
+    from,
+    to {
         color: var(--cur-color);
     }
     50% {
@@ -56,7 +52,8 @@ a {
 }
 
 @-moz-keyframes blink {
-    from, to {
+    from,
+    to {
         color: var(--cur-color);
     }
     50% {
@@ -65,7 +62,8 @@ a {
 }
 
 @-webkit-keyframes blink {
-    from, to {
+    from,
+    to {
         color: var(--cur-color);
     }
     50% {
@@ -74,7 +72,8 @@ a {
 }
 
 @-ms-keyframes blink {
-    from, to {
+    from,
+    to {
         color: var(--cur-color);
     }
     50% {
@@ -83,7 +82,8 @@ a {
 }
 
 @-o-keyframes blink {
-    from, to {
+    from,
+    to {
         color: var(--cur-color);
     }
     50% {
@@ -94,6 +94,7 @@ a {
 .hello {
     font-size: 30pt;
     margin-bottom: 3pt;
+    margin-left: -1pt;
 }
 
 .tinkoff {
