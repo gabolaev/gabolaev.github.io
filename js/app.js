@@ -82,7 +82,7 @@ function custom(parentClassName, className, elementType, f, withCursor = true) {
 }
 
 run(
-    text("body", "hello", "div", "hello", 5000),
+    text("body", "hello", "div", "hello", 3000),
     text("body", "engineer", "div", "i am a software engineer at ", 1000),
     text("engineer", "tinkoff", "span", "Tinkoff Investments", 200),
     text("body", "ninja", "div", "also i am 忍者 dev at "),
@@ -127,5 +127,5 @@ run(
             }
         },
     ),
-    text("body", "btw", "div", "btw, my name is george", 3000)
+    text("body", "btw", "div", "btw, my name is george", 2000)
 )
