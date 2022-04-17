@@ -20,10 +20,6 @@ function removeCursor() {
     }
 }
 
-function cursorIsOn() {
-    return document.querySelector(".cursor") !== null
-}
-
 function renderTypeWriterText(text, element, resolve, index = 0) {
     if (index !== text.length) {
         removeCursor()
