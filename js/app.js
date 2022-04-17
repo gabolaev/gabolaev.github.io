@@ -82,12 +82,12 @@ function custom(parentClassName, className, elementType, f, withCursor = true) {
 }
 
 run(
-    text("body", "hello", "div", "hello"),
+    text("body", "hello", "div", "hello", 5000),
     text("body", "engineer", "div", "i am a software engineer at ", 1000),
-    text("engineer", "tinkoff", "span", "Tinkoff Investments", 10),
+    text("engineer", "tinkoff", "span", "Tinkoff Investments", 200),
     text("body", "ninja", "div", "also i am 忍者 dev at "),
-    text("ninja", "kuji", "span", "KUJI Podcast", 100),
-    text("body", "about-me", "div", "my digital footprints can be found here"),
+    text("ninja", "kuji", "span", "KUJI Podcast", 200),
+    text("body", "about-me", "div", "my digital footprints can be found here", 1000),
     custom("body", "links", "div",
         (element) => {
             return (resolve, _) => {
@@ -123,7 +123,7 @@ run(
         (element) => {
             return (resolve, _) => {
                 element.href = "mailto:george@gabolaev.com";
-                renderText(element, resolve, "email me", 2000)
+                renderText(element, resolve, "email me", 1000)
             }
         },
     ),
