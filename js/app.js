@@ -121,7 +121,7 @@ run(
             }
         },
     ),
-    text("body", "btw", "div", "btw, my name is george", 10000),
+    text("body", "btw", "div", "btw, my name is george", 3000),
     text("body", "btw", "div", "so, what are you waiting for?", 10000),
     text("body", "btw", "div", "there is nothing more to see here...", 20000),
     text("body", "btw", "div", "i swear :)", 1000),
