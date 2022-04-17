@@ -22,6 +22,75 @@ a {
     text-decoration: none;
 }
 
+
+.link {
+
+}
+
+.cursor {
+    font-weight: 10;
+    /*font-size: 10px;*/
+    color: #2E3D48;
+    -moz-transition:all 0.5s ease-in-out;
+    -webkit-transition:all 0.5s ease-in-out;
+    -o-transition:all 0.5s ease-in-out;
+    -ms-transition:all 0.5s ease-in-out;
+    transition:all 0.5s ease-in-out;
+    -moz-animation:blink normal 1.5s infinite ease-in-out;
+    /* Firefox */
+    -webkit-animation:blink normal 1.5s infinite ease-in-out;
+    /* Webkit */
+    -ms-animation:blink normal 1.5s infinite ease-in-out;
+    /* IE */
+    animation:blink normal 1.5s infinite ease-in-out;
+    /* Opera */
+}
+
+@keyframes "blink" {
+    from, to {
+        color: white;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-moz-keyframes blink {
+    from, to {
+        color: white;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-webkit-keyframes "blink" {
+    from, to {
+        color: white;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-ms-keyframes "blink" {
+    from, to {
+        color: white;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
+@-o-keyframes "blink" {
+    from, to {
+        color: white;
+    }
+    50% {
+        color: transparent;
+    }
+}
+
 .hello {
     font-size: 30pt;
     margin-bottom: 3pt;
