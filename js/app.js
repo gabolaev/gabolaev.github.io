@@ -53,6 +53,7 @@ function run(...stages) {
 function prepareStageElement(parentClassName, className, elementType, withCursor = true) {
     const element = document.createElement(elementType);
     element.className = className;
+
     if (withCursor) {
         createCursor(element);
     }
