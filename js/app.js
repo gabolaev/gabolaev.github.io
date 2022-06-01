@@ -90,7 +90,7 @@ run(
     text("body", "engineer", "div", "i am a software engineer at ", 500),
     text("engineer", "tinkoff", "span", "Tinkoff Investments", 200),
     text("body", "ninja", "div", "also i am 忍者 dev at "),
-    text("ninja", "kuji", "span", "KUJI Podcast", 200),
+    text("ninja", "kuji", "span", "kuji podcast", 200),
     text("body", "about-me", "div", "my digital footprints can be found here", 1000),
     custom("body", "links", "div",
         (element) => {
