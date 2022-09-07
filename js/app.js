@@ -87,10 +87,10 @@ run(
             setTimeout(resolve, 1500)
         }
     }),
-    text("body", "engineer", "div", "i am a software engineer at ", 500),
-    text("engineer", "tinkoff", "span", "Tinkoff Investments", 200),
-    text("body", "ninja", "div", "also i am 忍者 dev at "),
-    text("ninja", "kuji", "span", "kuji podcast", 200),
+    text("body", "engineer", "div", "i am a software engineer at ", 500), text("engineer", "talon", "span", "Talon.One", 200),
+    text("body", "ninja", "div", "and a ninja-dev at "), text("ninja", "kuji", "span", "kuji podcast", 200),
+    text("body", "skip", "br", "", 0),
+    text("body", "previously", "div", "previously at ", 200), text("previously", "tinkoff", "span", "Tinkoff", 200), text("tinkoff", "and", "span", " and ", 200), text("and", "vk", "span", "VK", 200),
     text("body", "about-me", "div", "my digital footprints can be found here", 1000),
     custom("body", "links", "div",
         (element) => {
@@ -129,7 +129,6 @@ run(
                 element.href = "mailto:george@gabolaev.com";
                 renderText(element, resolve, "email me", 1000)
             }
-        },
-    ),
+        }, ),
     text("body", "btw", "div", "btw, my name is george", 2000)
 )
