@@ -81,16 +81,21 @@ function custom(parentClassName, className, elementType, f) {
 }
 
 run(
-    text("body", "hello", "div", "hello", 3000),
+    text("body", "hello", "div", "hello", 2500),
     custom("hello", "waiting", "span", (_) => {
         return (resolve, _) => {
             setTimeout(resolve, 1500)
         }
     }),
-    text("body", "engineer", "div", "i am a software engineer at ", 500), text("engineer", "talon", "span", "Talon.One", 200),
-    text("body", "ninja", "div", "and a ninja-dev at "), text("ninja", "kuji", "span", "kuji podcast", 200),
+    text("body", "engineer", "div", "i am a software engineer at ", 500),
+    text("engineer", "talon", "span", "Talon.One", 200),
     text("body", "skip", "br", "", 0),
-    text("body", "previously", "div", "previously at ", 200), text("previously", "tinkoff", "span", "Tinkoff", 200), text("tinkoff", "and", "span", " and ", 200), text("and", "vk", "span", "VK", 200),
+    text("body", "previously", "div", "previously at ", 200),
+    text("previously", "tinkoff", "span", "Tinkoff", 200),
+    text("tinkoff", "and", "span", ", ", 200),
+    text("and", "vk", "span", "VK", 200),
+    text("body", "ninja", "div", "and "),
+    text("ninja", "kuji", "span", "kuji podcast", 200),
     text("body", "about-me", "div", "my digital footprints can be found here", 1000),
     custom("body", "links", "div",
         (element) => {
