@@ -105,14 +105,6 @@ a {
     margin-left: -1pt;
 }
 
-.tinkoff {
-    color: #ffdd2d;
-}
-
-.kuji {
-    color: #aa75ff;
-}
-
 .about-me {
     margin-top: 40pt;
 }
@@ -129,13 +121,16 @@ a {
 
 .email-me {
     margin-top: 20pt;
+}
+
+.email-link {
     text-decoration: underline;
     text-underline-offset: 3px;
 }
 
-.btw {
-    margin-top: 30pt;
-    color: #4f4f4f;
+p {
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 @media (max-width: 677px) {
@@ -171,7 +166,7 @@ a {
     }
 
     .talon {
-        color: #08c8ff;
+        color: #80d7ff;
     }
 
     .kuji {
@@ -182,12 +177,12 @@ a {
         color: #ffdd2d;
     }
 
-    .and {
+    .and, .berlin, .berlin {
         color: white;
     }
 
     .vk {
-        color: #0077FF;
+        color: #55a5ff;
     }
 
     .btw {
@@ -226,7 +221,7 @@ a {
         color: black;
     }
 
-    .and {
+    .and, .berlin {
         background-color: white;
         color: black;
     }

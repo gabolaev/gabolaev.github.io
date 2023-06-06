@@ -81,22 +81,31 @@ function custom(parentClassName, className, elementType, f) {
 }
 
 run(
-    text("body", "hello", "div", "hello", 2500),
+    text("body", "hello", "div", "приве", 2500),
+    custom("hello", "waiting", "span", (_) => {
+        return (resolve, _) => {
+            document.querySelector('.hello').remove();
+            resolve()
+        }
+    }),
+    text("body", "hello", "div", "hello", 1100),
     custom("hello", "waiting", "span", (_) => {
         return (resolve, _) => {
             setTimeout(resolve, 1500)
         }
     }),
-    text("body", "engineer", "div", "i am a software engineer at ", 500),
+    text("body", "name", "div", "my name is george and i'm a software engineer", 500),
+    text("body", "engineer", "div", "at ", 500),
     text("engineer", "talon", "span", "Talon.One", 200),
+    text("talon", "berlin", "span", " in Berlin, Germany", 100),
     text("body", "skip", "br", "", 0),
-    text("body", "previously", "div", "previously at ", 200),
+    text("body", "previously", "div", "in the past, worked at ", 200),
     text("previously", "tinkoff", "span", "Tinkoff", 200),
     text("tinkoff", "and", "span", ", ", 200),
     text("and", "vk", "span", "VK", 200),
     text("body", "ninja", "div", "and "),
     text("ninja", "kuji", "span", "kuji podcast", 200),
-    text("body", "about-me", "div", "my digital footprints can be found here", 1000),
+    text("body", "about-me", "div", "you can follow my digital footsteps", 1000),
     custom("body", "links", "div",
         (element) => {
             return (resolve, _) => {
@@ -128,12 +137,19 @@ run(
             }
         },
     ),
-    custom("body", "email-me", "a",
+    text("body", "email-me", "div", "or hit me up with an "),
+    custom("email-me", "email-link", "a",
         (element) => {
             return (resolve, _) => {
                 element.href = "mailto:george@gabolaev.com";
-                renderText(element, resolve, "email me", 1000)
+                renderText(element, resolve, "email", 100)
             }
-        }, ),
-    text("body", "btw", "div", "btw, my name is george", 2000)
+        },
+    ),
+    text("body", "enter", "br", "", 450),
+    text("body", "enter", "p", "", 450),
+    text("body", "enter", "br", "", 250),
+    text("body", "enter", "p", "", 250),
+    text("body", "enter", "br", "", 250),
+    text("body", "enter", "p", "🧤", 10000),
 )
