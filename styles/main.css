@@ -105,10 +105,6 @@ a {
     margin-left: -1pt;
 }
 
-.about-me {
-    margin-top: 40pt;
-}
-
 .links {
     margin-top: 7pt;
 }
@@ -165,6 +161,10 @@ p {
         --cur-color: white;
     }
 
+    .docker {
+        color: #5b92ff;
+    }
+
     .talon {
         color: #80d7ff;
     }
@@ -177,7 +177,7 @@ p {
         color: #ffdd2d;
     }
 
-    .and, .berlin, .berlin {
+    .and, .berlin{
         color: white;
     }
 
@@ -193,7 +193,7 @@ p {
     body,
     a {
         color: white;
-        background: black;
+        background: #17191E;
     }
 
     .links img {
@@ -206,13 +206,22 @@ p {
         --cur-color: black;
     }
 
+    .docker {
+        background-color: #1D63ED;
+        /* color: #E5F2FC; */
+        color: white;
+    }
+
+
     .talon {
         background-color: #1469ff;
+        /* color: #E5F2FC; */
         color: white;
     }
 
     .kuji {
         background-color: #7543b8;
+        /* color: #E5F2FC; */
         color: white;
     }
 
@@ -221,13 +230,9 @@ p {
         color: black;
     }
 
-    .and, .berlin {
-        background-color: white;
-        color: black;
-    }
-
     .vk {
         background-color: #2a8dff;
+        /* color: #E5F2FC; */
         color: white;
     }
 
@@ -237,8 +242,11 @@ p {
 
     html,
     body,
-    a {
+    a,
+    .and,
+    .berlin {
         color: black;
+        /* background-color: #E5F2FC; */
         background-color: white;
     }
 
