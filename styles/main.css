@@ -115,13 +115,9 @@ a {
     filter: invert(0);
 }
 
-.email-me {
-    margin-top: 20pt;
-}
-
-.email-link {
+.link {
     text-decoration: underline;
-    text-underline-offset: 3px;
+    text-underline-offset: 2px;
 }
 
 p {
@@ -175,10 +171,6 @@ p {
 
     .tinkoff {
         color: #ffdd2d;
-    }
-
-    .and, .berlin{
-        color: white;
     }
 
     .vk {
@@ -242,9 +234,7 @@ p {
 
     html,
     body,
-    a,
-    .and,
-    .berlin {
+    a {
         color: black;
         /* background-color: #E5F2FC; */
         background-color: white;
