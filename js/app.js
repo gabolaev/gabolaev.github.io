@@ -1,5 +1,11 @@
-const TYPING_SPEED = 63;
-const DEFAULT_DELAY = 100;
+const DEBUG = true;
+var TYPING_SPEED = 53;
+var DEFAULT_DELAY = 100;
+
+if (DEBUG) {
+    TYPING_SPEED = 1;
+    DEFAULT_DELAY = 0;
+}
 
 function randomInRange(start, end) {
     return Math.floor(Math.random() * (end - start + 1) + start)
@@ -26,7 +32,7 @@ function renderTypeWriterText(text, element, resolve, index = 0) {
         element.innerHTML += text.charAt(index);
         createCursor(element);
         setTimeout(
-            renderTypeWriterText, TYPING_SPEED + randomInRange(-5, 3),
+            renderTypeWriterText, TYPING_SPEED + randomInRange(-5, 5),
             text, element, resolve, ++index,
         )
     } else {
@@ -35,6 +41,10 @@ function renderTypeWriterText(text, element, resolve, index = 0) {
 }
 
 function renderText(element, resolve, text, delay) {
+    if (DEBUG) {
+        delay = 0;
+    }
+
     removeCursor()
     createCursor(element)
 
@@ -120,36 +130,55 @@ run(
     text(Base.Body, 'hello', 'div', 'hello', 1000),
     custom(Base.Prev, 'action', 'span', () => {
         return (resolve) => {
-            setTimeout(resolve, 500);
+            setTimeout(resolve, 1000);
         }
     }),
     text(Base.Body, 'plain', 'div', 'my name is george and i\'m a software engineer.', 100),
     text(Base.Body, 'plain', 'div', 'i work at ', 500),
-    text(Base.Prev, 'talon', 'span', 'talon.one', 200),
+    custom(Base.Prev, 'link talon', 'a',
+        (element) => {
+            return (resolve) => {
+                element.href = 'https://talon.one';
+                renderText(element, resolve, 'talon.one', 100);
+            }
+        },
+    ),
     text(Base.ExPrev, 'plain', 'span', ' in berlin, germany', 100),
     period(Base.Prev),
     enter(),
     text(Base.Body, 'plain', 'div', 'in the past, i worked at ', 200),
-    text(Base.Prev, 'vk', 'span', 'vk', 200),
-    comma(Base.ExPrev),
-    text(Base.Prev, 'tinkoff', 'span', 'tinkoff', 200),
-    // comma(Base.ExPrev),
-    // text(Base.Prev, 'talon', 'span', 'talon.one', 200),
-    text(Base.Body, 'plain', 'div', 'and '),
-    text(Base.Prev, 'kuji', 'span', 'kuji podcast', 200),
-    period(Base.ExPrev),
-    enter(),
-    text(Base.Body, 'plain', 'div', 'you can find me on ', 1000),
-    custom(Base.Prev, 'link', 'a',
+    custom(Base.Prev, 'link vk', 'a',
         (element) => {
             return (resolve) => {
-                element.href = 'https://t.me/gabolaev';
-                renderText(element, resolve, 'telegram', 100);
+                element.href = 'https://vk.company';
+                renderText(element, resolve, 'vk', 100);
             }
         },
     ),
     comma(Base.ExPrev),
-    custom(Base.Prev, 'link', 'a',
+    custom(Base.Prev, 'link tinkoff', 'a',
+        (element) => {
+            return (resolve) => {
+                element.href = 'https://tinkoff.ru';
+                renderText(element, resolve, 'tinkoff', 100);
+            }
+        },
+    ),
+    // comma(Base.ExPrev),
+    // text(Base.Prev, 'talon', 'span', 'talon.one', 200),
+    text(Base.Body, 'plain', 'div', 'and '),
+    custom(Base.Prev, 'link kuji', 'a',
+    (element) => {
+        return (resolve) => {
+            element.href = 'https://www.youtube.com/@KuJiPodcast';
+            renderText(element, resolve, 'kuji podcast', 100);
+        }
+    },
+),
+    period(Base.ExPrev),
+    enter(),
+    text(Base.Body, 'plain', 'div', 'you can find me on ', 1000),
+    custom(Base.Prev, 'link linkedin', 'a',
         (element) => {
             return (resolve) => {
                 element.href = 'https://www.linkedin.com/in/gabolaev';
@@ -158,8 +187,7 @@ run(
         },
     ),
     comma(Base.ExPrev),
-    text(Base.Prev, 'plain', 'div', '', 100),
-    custom(Base.Prev, 'link', 'a',
+    custom(Base.Prev, 'link github', 'a',
         (element) => {
             return (resolve) => {
                 element.href = 'https://github.com/gabolaev';
@@ -168,7 +196,26 @@ run(
         },
     ),
     comma(Base.ExPrev),
-    custom(Base.Prev, 'link', 'a',
+    text(Base.Prev, 'plain', 'div', '', 100),
+    custom(Base.Prev, 'link telegram', 'a',
+        (element) => {
+            return (resolve) => {
+                element.href = 'https://t.me/gabolaev';
+                renderText(element, resolve, 'telegram', 100);
+            }
+        },
+    ),
+    comma(Base.ExPrev),
+    custom(Base.Prev, 'link instagram', 'a',
+        (element) => {
+            return (resolve) => {
+                element.href = 'https://www.instagram.com/gabolaev';
+                renderText(element, resolve, 'instagram', 100);
+            }
+        },
+    ),
+    comma(Base.ExPrev),
+    custom(Base.Prev, 'link spotify spotify', 'a',
         (element) => {
             return (resolve) => {
                 element.href = 'https://open.spotify.com/user/gabolaev';
@@ -177,17 +224,7 @@ run(
         },
     ),
     comma(Base.ExPrev),
-    custom(Base.Prev, 'link', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://www.instagram.com/gabolaev';
-                renderText(element, resolve, 'instagram', 100);
-            }
-        },
-    ),
-
-    comma(Base.ExPrev),
-    custom(Base.Prev, 'link', 'a',
+    custom(Base.Prev, 'link letterboxd', 'a',
         (element) => {
             return (resolve) => {
                 element.href = 'https://letterboxd.com/gabolaev';
@@ -195,7 +232,7 @@ run(
             }
         },
     ),
-    text(Base.ExPrev, 'plain', 'span', ' and '),
+    text(Base.Body, 'plain', 'span', ' and even '),
     custom(Base.Prev, 'link twitter', 'a',
         (element) => {
             return (resolve) => {
@@ -213,7 +250,7 @@ run(
     }),
     enter(),
     text(Base.Body, 'plain', 'div', 'or hit me up with an '),
-    custom(Base.Prev, 'link', 'a',
+    custom(Base.Prev, 'link email', 'a',
         (element) => {
             return (resolve) => {
                 element.href = 'mailto:george@gabolaev.com';
@@ -227,5 +264,5 @@ run(
     text(Base.Body, 'plain', 'br', '', 250),
     text(Base.Body, 'plain', 'p', '', 250),
     text(Base.Body, 'plain', 'br', '', 250),
-    text(Base.Body, 'plain', 'p', '🧤', 10000),
+    text(Base.Body, 'plain', 'p', 'that\'s all.', 10000),
 )

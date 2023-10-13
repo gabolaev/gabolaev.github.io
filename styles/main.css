@@ -10,7 +10,7 @@ body {
     padding: 0 0 0 10pt;
     display: flex;
     font-size: 10pt;
-    user-select: none;
+    line-height: 12pt;
     flex-direction: column;
     font-family: 'HelveticaNeue-Bold';
 }
@@ -21,8 +21,8 @@ a {
 }
 
 .cursor {
-    color: #2E3D48;
-    --cur-color: white;
+    color: #033357;
+    --cur-color: #ffffff;
     text-decoration: none;
     -moz-transition: all 0.5s ease-in-out;
     -webkit-transition: all 0.5s ease-in-out;
@@ -101,7 +101,7 @@ a {
 
 .hello {
     font-size: 30pt;
-    margin-bottom: 3pt;
+    margin-bottom: 15pt;
     margin-left: -1pt;
 }
 
@@ -117,7 +117,12 @@ a {
 
 .link {
     text-decoration: underline;
-    text-underline-offset: 2px;
+    text-decoration-thickness: 1.3pt;
+    text-underline-offset: 1pt;
+}
+
+.link:hover {
+    /* text-decoration-line: none; */
 }
 
 p {
@@ -157,39 +162,123 @@ p {
         --cur-color: white;
     }
 
-    .docker {
-        color: #5b92ff;
+    .talon:hover {
+        background-color: #80d7ff;
+        color: #ffffff;
     }
 
     .talon {
-        color: #80d7ff;
+        text-decoration-color: #80d7ff;
+    }
+
+    .kuji:hover {
+        background-color: #7543b8;
+        color: #ffffff;
     }
 
     .kuji {
-        color: #aa75ff;
+        text-decoration-color: #7543b8;
+    }
+
+    .tinkoff:hover {
+        background-color: #ffdd2d;
+        color: #000000;
     }
 
     .tinkoff {
-        color: #ffdd2d;
+        text-decoration-color: #ffdd2d;
+    }
+
+    .vk:hover {
+        background-color: #2a8dff;
+        color: #ffffff;
     }
 
     .vk {
-        color: #55a5ff;
+        text-decoration-color: #2a8dff;
     }
 
-    .btw {
-        color: #4f4f4f;
+    .telegram:hover {
+        background-color: #179cde;
     }
 
+    .telegram {
+        text-decoration-color: #179cde;
+    }
+
+    .telegram:hover {
+        background-color: #179cde;
+        color: #ffffff;
+    }
+
+    .linkedin {
+        text-decoration-color: #0077B5;
+    }
+
+    .linkedin:hover {
+        background-color: #0077B5;
+        color: #ffffff;
+    }
+
+    .github {
+        text-decoration-color: #ffffff;
+    }
+
+    .github:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+    .spotify {
+        text-decoration-color: #1fd761;
+    }
+
+    .spotify:hover {
+        background-color: #1fd761;
+        color: #000000;
+    }
+
+    .letterboxd {
+        text-decoration-color: #ff8001;
+    }
+
+    .letterboxd:hover {
+        background-color: #ff8001;
+        color: #ffffff;
+    }
+
+    .instagram {
+        text-decoration-color: #E4405F;
+    }
+
+    .instagram:hover {
+        background-color: #E4405F;
+        color: #ffffff;
+    }
+
+    .twitter {
+        text-decoration-color: #ffffff;
+    }
+
+    .twitter:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
+
+
+    .email {
+        text-decoration-color: #ffffff;
+    }
+
+    .email:hover {
+        background-color: #ffffff;
+        color: #000000;
+    }
     html,
     body,
     a {
-        color: white;
+        color: #ffffff;
         background: #17191E;
-    }
-
-    .links img {
-        filter: invert(0);
     }
 }
 
@@ -198,49 +287,120 @@ p {
         --cur-color: black;
     }
 
-    .docker {
-        background-color: #1D63ED;
-        /* color: #E5F2FC; */
-        color: white;
+    .talon:hover {
+        background-color: #80d7ff;
+        color: #ffffff;
     }
 
-
     .talon {
-        background-color: #1469ff;
-        /* color: #E5F2FC; */
-        color: white;
+        text-decoration-color: #80d7ff;
+    }
+
+    .kuji:hover {
+        background-color: #7543b8;
+        color: #ffffff;
     }
 
     .kuji {
-        background-color: #7543b8;
-        /* color: #E5F2FC; */
-        color: white;
+        text-decoration-color: #7543b8;
+    }
+
+    .tinkoff:hover {
+        background-color: #ffdd2d;
     }
 
     .tinkoff {
-        background-color: #ffdd2d;
-        color: black;
+        text-decoration-color: #ffdd2d;
+    }
+
+    .vk:hover {
+        background-color: #2a8dff;
+        color: #ffffff;
     }
 
     .vk {
-        background-color: #2a8dff;
-        /* color: #E5F2FC; */
-        color: white;
+        text-decoration-color: #2a8dff;
     }
 
-    .btw {
-        color: #aeaeae;
+    .telegram:hover {
+        background-color: #179cde;
+    }
+
+    .telegram {
+        text-decoration-color: #179cde;
+    }
+
+    .telegram:hover {
+        background-color: #179cde;
+        color: #ffffff;
+    }
+
+    .linkedin {
+        text-decoration-color: #0077B5;
+    }
+
+    .linkedin:hover {
+        background-color: #0077B5;
+        color: #ffffff;
+    }
+
+    .github {
+        text-decoration-color: #181717;
+    }
+
+    .github:hover {
+        background-color: #181717;
+        color: #ffffff;
+    }
+
+    .spotify {
+        text-decoration-color: #1fd761;
+    }
+
+    .spotify:hover {
+        background-color: #1fd761;
+        color: #000000;
+    }
+
+    .letterboxd {
+        text-decoration-color: #ff8001;
+    }
+
+    .letterboxd:hover {
+        background-color: #ff8001;
+        color: #ffffff;
+    }
+
+    .instagram {
+        text-decoration-color: #E4405F;
+    }
+
+    .instagram:hover {
+        background-color: #E4405F;
+        color: #ffffff;
+    }
+
+    .twitter {
+        text-decoration-color: #000000;
+    }
+
+    .twitter:hover {
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    .email {
+        text-decoration-color: #000000;
+    }
+
+    .email:hover {
+        background-color: #000000;
+        color: #ffffff;
     }
 
     html,
     body,
     a {
         color: black;
-        /* background-color: #E5F2FC; */
-        background-color: white;
-    }
-
-    .links img {
-        filter: invert(1);
     }
 }
