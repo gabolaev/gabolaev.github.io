@@ -1,4 +1,4 @@
-const DEBUG = true;
+const DEBUG = false;
 var TYPING_SPEED = 53;
 var DEFAULT_DELAY = 100;
 
