@@ -38,7 +38,7 @@ class TextScramble {
                 complete++;
                 output += to;
             } else if (this.frame >= start) {
-                if (!char || Math.random() < 0.01) {
+                if (!char || Math.random() < 0.2) {
                     char = this.randomChar();
                     this.queue[i].char = char;
                 }
