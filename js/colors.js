@@ -2,6 +2,9 @@ const colorSchemes = [
     '0x002c4f',
     '0x004B3D',
     '0xA51C30',
+    '0xFF183F',
+    '0x03FF74',
+    '0x045EFF'
 ];
 
 let activeColorScheme = Math.floor(Math.random() * colorSchemes.length);

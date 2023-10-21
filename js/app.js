@@ -66,7 +66,7 @@ function paintHrefHovers() {
 reveal(".background")
 
 const text = document.querySelector(".text");
-text.style.color = shadeColorToAlmostWhite(activeColor, 0.75);
+text.style.color = shadeColorToAlmostWhite(activeColor, 0.86);
 const fx = new TextScramble(text, activeColor);
 
 let counter = 0;
