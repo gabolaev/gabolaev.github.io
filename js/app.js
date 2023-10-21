@@ -1,268 +1,101 @@
-const DEBUG = false;
-var TYPING_SPEED = 53;
-var DEFAULT_DELAY = 100;
+const summary = `george gabolaev
 
-if (DEBUG) {
-    TYPING_SPEED = 1;
-    DEFAULT_DELAY = 0;
+software engineer
+at talon.one
+
+
+
+links
+
+george@gabolaev.com`
+const summaryHrefed = `george gabolaev
+
+software engineer
+at talon.one
+
+
+
+<a href="#summary" onclick="showLinks();">links</a>
+
+<a href=mailto:george@gabolaev.com>george@gabolaev.com</a>`
+
+const phrases = [
+    "hello",
+    "my name is george",
+    "i'm a software engineer",
+    "at talon.one",
+    "previously i worked at:",
+    "vk",
+    "tinkoff",
+    "and kuji podcast",
+    "wanna reach out?",
+    "it's @gabolaev everywhere",
+    "or george@gabolaev.com",
+];
+
+const links = `linkedin
+instagram
+github
+telegram
+spotify
+twitter
+letterboxd
+
+
+back`
+
+const linksHrefed = `<a href='https://linkedin.com/in/gabolaev'>linkedin</a>
+    <a href='https://instagram.com/gabolaev'>instagram</a>
+    <a href='https://github.com/gabolaev'>github</a>
+    <a href='https://t.me/gabolaev'>telegram</a>
+    <a href='https://open.spotify.com/user/gabolaev'>spotify</a>
+    <a href='https://x.com/rugbeehead'>twitter</a>
+    <a href='https://letterboxd.com/gabolaev'>letterboxd</a>
+
+
+    <a href="#links" onclick="showSummary();">back</a>
+`
+
+function paintHrefHovers() {
+    document.querySelectorAll('a').forEach((a) => {
+        a.style.setProperty('--hover-background', activeColor);
+        a.style.setProperty('--hover-color', shadeColorToAlmostWhite(activeColor, 0.99));
+    });
 }
 
-function randomInRange(start, end) {
-    return Math.floor(Math.random() * (end - start + 1) + start)
-}
+reveal(".background")
 
-function createCursor(refElement) {
-    const cursor = refElement.insertBefore(document.createElement('span'), null);
-    cursor.id = 'cursor';
-    cursor.className = 'cursor';
-    cursor.style.fontSize = refElement.style.fontSize;
-    cursor.innerHTML = '|';
-}
+const text = document.querySelector(".text");
+text.style.color = shadeColorToAlmostWhite(activeColor, 0.75);
+const fx = new TextScramble(text, activeColor);
 
-function removeCursor() {
-    const curs = document.getElementsByClassName('cursor');
-    while (curs.length > 0) {
-        curs[0].parentNode.removeChild(curs[0]);
-    }
-}
-
-function renderTypeWriterText(text, element, resolve, index = 0) {
-    if (index !== text.length) {
-        removeCursor()
-        element.innerHTML += text.charAt(index);
-        createCursor(element);
-        setTimeout(
-            renderTypeWriterText, TYPING_SPEED + randomInRange(-5, 5),
-            text, element, resolve, ++index,
-        )
-    } else {
-        resolve()
-    }
-}
-
-function renderText(element, resolve, text, delay) {
-    if (DEBUG) {
-        delay = 0;
-    }
-
-    removeCursor()
-    createCursor(element)
-
-    setTimeout(
-        renderTypeWriterText, delay,
-        text, element, resolve,
-    )
-}
-
-function run(...stages) {
-    let wait = stages[0]();
-    if (stages.length !== 1) {
-        wait.then(() => {
-            run(...stages.slice(1))
+let counter = 0;
+const next = () => {
+    if (counter == phrases.length) {
+        fx.setText(summary).then(() => {
+            setTimeout(() => { fx.hardReplace(summaryHrefed); paintHrefHovers(); }, 103);
         })
+        return
     }
+    fx.setText(phrases[counter]).then(() => {
+        setTimeout(next, 1000);
+    });
+    counter = (counter + 1);
+};
+
+const showLinks = () => {
+    fx.hardReplace(summary);
+    fx.setText(links).then(() => {
+        setTimeout(() => { fx.hardReplace(linksHrefed); paintHrefHovers(); }, 103);
+    })
+
 }
 
-let parentsHistory = {
-    'body': 'body',
-    'prev': 'body',
-    'exPrev': 'body',
+const showSummary = () => {
+    fx.hardReplace(links);
+    fx.setText(summary).then(() => {
+        setTimeout(() => { fx.hardReplace(summaryHrefed); paintHrefHovers(); }, 103);
+    })
 }
 
-let Base = {
-    Body: 'body',
-    Prev: 'prev',
-    ExPrev: 'exPrev',
-}
-
-function prepareStageElement(baseControl, className, elementType) {
-    let parentClassName = parentsHistory[baseControl];
-    parentsHistory.exPrev = parentsHistory.prev;
-    parentsHistory.prev = className;
-
-    const element = document.createElement(elementType);
-    element.className = className;
-
-    let parents = document.querySelectorAll('.' + parentClassName.replace(' ', '.'));
-
-    (
-        parents[parents.length - 1] ||
-        document.body
-    ).appendChild(element)
-    return element
-}
-
-
-function text(baseControl, className, elementType, text, delay = DEFAULT_DELAY) {
-    return () => {
-        return new Promise((resolve) => {
-            renderText(prepareStageElement(baseControl, className, elementType), resolve, text, delay)
-        })
-    }
-}
-
-function enter() {
-    return text(Base.Body, 'skip', 'br', '', 0);
-}
-
-function comma(baseControl) {
-    return text(baseControl, 'comma', 'span', ', ', 200);
-}
-
-function period(baseControl) {
-    return text(baseControl, 'period', 'span', '. ', 200);
-}
-
-function custom(baseControl, className, elementType, f) {
-    return () => {
-        return new Promise(f(prepareStageElement(baseControl, className, elementType)))
-    }
-}
-
-run(
-    text(Base.Body, 'hello', 'div', 'приве', 1000),
-    custom(Base.Body, 'action', 'span', () => {
-        return (resolve) => {
-            document.querySelector('.hello').remove();
-            resolve();
-        }
-    }),
-    text(Base.Body, 'hello', 'div', 'hello', 1000),
-    custom(Base.Prev, 'action', 'span', () => {
-        return (resolve) => {
-            setTimeout(resolve, 1000);
-        }
-    }),
-    text(Base.Body, 'plain', 'div', 'my name is george and i\'m a software engineer.', 100),
-    text(Base.Body, 'plain', 'div', 'i work at ', 500),
-    custom(Base.Prev, 'link talon', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://talon.one';
-                renderText(element, resolve, 'talon.one', 100);
-            }
-        },
-    ),
-    text(Base.ExPrev, 'plain', 'span', ' in berlin, germany', 100),
-    period(Base.Prev),
-    enter(),
-    text(Base.Body, 'plain', 'div', 'in the past, i worked at ', 200),
-    custom(Base.Prev, 'link vk', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://vk.company';
-                renderText(element, resolve, 'vk', 100);
-            }
-        },
-    ),
-    comma(Base.ExPrev),
-    custom(Base.Prev, 'link tinkoff', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://tinkoff.ru';
-                renderText(element, resolve, 'tinkoff', 100);
-            }
-        },
-    ),
-    // comma(Base.ExPrev),
-    // text(Base.Prev, 'talon', 'span', 'talon.one', 200),
-    text(Base.Body, 'plain', 'div', 'and '),
-    custom(Base.Prev, 'link kuji', 'a',
-    (element) => {
-        return (resolve) => {
-            element.href = 'https://www.youtube.com/@KuJiPodcast';
-            renderText(element, resolve, 'kuji podcast', 100);
-        }
-    },
-),
-    period(Base.ExPrev),
-    enter(),
-    text(Base.Body, 'plain', 'div', 'you can find me on ', 1000),
-    custom(Base.Prev, 'link linkedin', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://www.linkedin.com/in/gabolaev';
-                renderText(element, resolve, 'linkedin', 100);
-            }
-        },
-    ),
-    comma(Base.ExPrev),
-    custom(Base.Prev, 'link github', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://github.com/gabolaev';
-                renderText(element, resolve, 'github', 100);
-            }
-        },
-    ),
-    comma(Base.ExPrev),
-    text(Base.Prev, 'plain', 'div', '', 100),
-    custom(Base.Prev, 'link telegram', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://t.me/gabolaev';
-                renderText(element, resolve, 'telegram', 100);
-            }
-        },
-    ),
-    comma(Base.ExPrev),
-    custom(Base.Prev, 'link instagram', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://www.instagram.com/gabolaev';
-                renderText(element, resolve, 'instagram', 100);
-            }
-        },
-    ),
-    comma(Base.ExPrev),
-    custom(Base.Prev, 'link spotify spotify', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://open.spotify.com/user/gabolaev';
-                renderText(element, resolve, 'spotify', 100);
-            }
-        },
-    ),
-    comma(Base.ExPrev),
-    custom(Base.Prev, 'link letterboxd', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://letterboxd.com/gabolaev';
-                renderText(element, resolve, 'letterboxd', 100);
-            }
-        },
-    ),
-    text(Base.Body, 'plain', 'span', ' and even '),
-    custom(Base.Prev, 'link twitter', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'https://x.com/rugbeehead';
-                renderText(element, resolve, 'twitter', 100);
-            }
-        },
-    ),
-    period(Base.ExPrev),
-    custom(Base.Body, 'action', 'span', () => {
-        return (resolve) => {
-            document.querySelector('.twitter').innerHTML = "𝕏";
-            resolve();
-        }
-    }),
-    enter(),
-    text(Base.Body, 'plain', 'div', 'or hit me up with an '),
-    custom(Base.Prev, 'link email', 'a',
-        (element) => {
-            return (resolve) => {
-                element.href = 'mailto:george@gabolaev.com';
-                renderText(element, resolve, 'email', 100);
-            }
-        },
-    ),
-    period(Base.ExPrev),
-    text(Base.Body, 'plain', 'br', '', 450),
-    text(Base.Body, 'plain', 'p', '', 450),
-    text(Base.Body, 'plain', 'br', '', 250),
-    text(Base.Body, 'plain', 'p', '', 250),
-    text(Base.Body, 'plain', 'br', '', 250),
-    text(Base.Body, 'plain', 'p', 'that\'s all.', 10000),
-)
+next();

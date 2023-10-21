@@ -1,406 +1,71 @@
 @font-face {
-    font-family: "HelveticaNeue-Bold";
-    src: url("../fonts/HelveticaNeue-Bold.ttf");
+    font-family: "FiraCode";
+    src: url("../fonts/FiraCode-VariableFont_wght.ttf");
 }
 
 html,
 body {
-    min-width: 54%;
-    margin: 65pt auto auto auto;
-    padding: 0 0 0 10pt;
+    font-family: 'FiraCode', monospace;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-variant-ligatures: normal;
+    background-color: #000000;
+    justify-content: center;
+    align-items: center;
     display: flex;
-    font-size: 10pt;
-    line-height: 12pt;
-    flex-direction: column;
-    font-family: 'HelveticaNeue-Bold';
+    overflow: hidden;
 }
 
 a {
-    color: black;
-    text-decoration: none;
-}
-
-.cursor {
-    color: #033357;
-    --cur-color: #ffffff;
-    text-decoration: none;
-    -moz-transition: all 0.5s ease-in-out;
-    -webkit-transition: all 0.5s ease-in-out;
-    -o-transition: all 0.5s ease-in-out;
-    -ms-transition: all 0.5s ease-in-out;
-    transition: all 0.5s ease-in-out;
-    -moz-animation: blink normal 1s infinite;
-    /* Firefox */
-    -webkit-animation: blink normal 1.5s infinite;
-    /* Webkit */
-    -ms-animation: blink normal 1.5s infinite;
-    /* IE */
-    animation: blink normal 1.5s infinite;
-    /* Opera */
-}
-
-@keyframes blink {
-
-    from,
-    to {
-        color: var(--cur-color);
-    }
-
-    50% {
-        color: transparent;
-    }
-}
-
-@-moz-keyframes blink {
-
-    from,
-    to {
-        color: var(--cur-color);
-    }
-
-    50% {
-        color: transparent;
-    }
-}
-
-@-webkit-keyframes blink {
-
-    from,
-    to {
-        color: var(--cur-color);
-    }
-
-    50% {
-        color: transparent;
-    }
-}
-
-@-ms-keyframes blink {
-
-    from,
-    to {
-        color: var(--cur-color);
-    }
-
-    50% {
-        color: transparent;
-    }
-}
-
-@-o-keyframes blink {
-
-    from,
-    to {
-        color: var(--cur-color);
-    }
-
-    50% {
-        color: transparent;
-    }
-}
-
-.hello {
-    font-size: 30pt;
-    margin-bottom: 15pt;
-    margin-left: -1pt;
-}
-
-.links {
-    margin-top: 7pt;
-}
-
-.links img {
-    height: 27pt;
-    margin-right: 5pt;
-    filter: invert(0);
-}
-
-.link {
     text-decoration: underline;
-    text-decoration-thickness: 1.3pt;
-    text-underline-offset: 1pt;
+    color: inherit;
 }
 
-.link:hover {
-    /* text-decoration-line: none; */
+a:hover {
+    background: #ffffff;
+    background: var(--hover-background);
+    color: #000000;
+    color: var(--hover-color);
 }
 
-p {
-    margin-top: 0px;
-    margin-bottom: 0px;
+::-moz-selection {
+    background: #ffffff;
+    background: var(--hover-background);
+    color: #000000;
+    color: var(--hover-color);
 }
 
-@media (max-width: 677px) {
-
-    html,
-    body {
-        margin-left: 2pt;
-    }
+::selection {
+    background: #ffffff;
+    background: var(--hover-background);
+    color: #000000;
+    color: var(--hover-color);
 }
 
-@media (max-width: 355px) {
-    .links img {
-        height: 24pt;
-    }
-
-    html,
-    body {
-        margin-left: -1pt;
-    }
+.background {
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    position: absolute;
 }
 
-@media (max-height: 450px) {
-
-    html,
-    body {
-        margin-top: 15pt;
-    }
+.container {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
 }
 
-@media (prefers-color-scheme: dark) {
-    .cursor {
-        --cur-color: white;
-    }
-
-    .talon:hover {
-        background-color: #80d7ff;
-        color: #ffffff;
-    }
-
-    .talon {
-        text-decoration-color: #80d7ff;
-    }
-
-    .kuji:hover {
-        background-color: #7543b8;
-        color: #ffffff;
-    }
-
-    .kuji {
-        text-decoration-color: #7543b8;
-    }
-
-    .tinkoff:hover {
-        background-color: #ffdd2d;
-        color: #000000;
-    }
-
-    .tinkoff {
-        text-decoration-color: #ffdd2d;
-    }
-
-    .vk:hover {
-        background-color: #2a8dff;
-        color: #ffffff;
-    }
-
-    .vk {
-        text-decoration-color: #2a8dff;
-    }
-
-    .telegram:hover {
-        background-color: #179cde;
-    }
-
-    .telegram {
-        text-decoration-color: #179cde;
-    }
-
-    .telegram:hover {
-        background-color: #179cde;
-        color: #ffffff;
-    }
-
-    .linkedin {
-        text-decoration-color: #0077B5;
-    }
-
-    .linkedin:hover {
-        background-color: #0077B5;
-        color: #ffffff;
-    }
-
-    .github {
-        text-decoration-color: #ffffff;
-    }
-
-    .github:hover {
-        background-color: #ffffff;
-        color: #000000;
-    }
-
-    .spotify {
-        text-decoration-color: #1fd761;
-    }
-
-    .spotify:hover {
-        background-color: #1fd761;
-        color: #000000;
-    }
-
-    .letterboxd {
-        text-decoration-color: #ff8001;
-    }
-
-    .letterboxd:hover {
-        background-color: #ff8001;
-        color: #ffffff;
-    }
-
-    .instagram {
-        text-decoration-color: #E4405F;
-    }
-
-    .instagram:hover {
-        background-color: #E4405F;
-        color: #ffffff;
-    }
-
-    .twitter {
-        text-decoration-color: #ffffff;
-    }
-
-    .twitter:hover {
-        background-color: #ffffff;
-        color: #000000;
-    }
-
-
-    .email {
-        text-decoration-color: #ffffff;
-    }
-
-    .email:hover {
-        background-color: #ffffff;
-        color: #000000;
-    }
-    html,
-    body,
-    a {
-        color: #ffffff;
-        background: #17191E;
-    }
+.text {
+    text-align: center;
+    font-weight: 500;
+    font-size: 21px;
 }
 
-@media (prefers-color-scheme: light) {
-    .cursor {
-        --cur-color: black;
-    }
-
-    .talon:hover {
-        background-color: #80d7ff;
-        color: #ffffff;
-    }
-
-    .talon {
-        text-decoration-color: #80d7ff;
-    }
-
-    .kuji:hover {
-        background-color: #7543b8;
-        color: #ffffff;
-    }
-
-    .kuji {
-        text-decoration-color: #7543b8;
-    }
-
-    .tinkoff:hover {
-        background-color: #ffdd2d;
-    }
-
-    .tinkoff {
-        text-decoration-color: #ffdd2d;
-    }
-
-    .vk:hover {
-        background-color: #2a8dff;
-        color: #ffffff;
-    }
-
-    .vk {
-        text-decoration-color: #2a8dff;
-    }
-
-    .telegram:hover {
-        background-color: #179cde;
-    }
-
-    .telegram {
-        text-decoration-color: #179cde;
-    }
-
-    .telegram:hover {
-        background-color: #179cde;
-        color: #ffffff;
-    }
-
-    .linkedin {
-        text-decoration-color: #0077B5;
-    }
-
-    .linkedin:hover {
-        background-color: #0077B5;
-        color: #ffffff;
-    }
-
-    .github {
-        text-decoration-color: #181717;
-    }
-
-    .github:hover {
-        background-color: #181717;
-        color: #ffffff;
-    }
-
-    .spotify {
-        text-decoration-color: #1fd761;
-    }
-
-    .spotify:hover {
-        background-color: #1fd761;
-        color: #000000;
-    }
-
-    .letterboxd {
-        text-decoration-color: #ff8001;
-    }
-
-    .letterboxd:hover {
-        background-color: #ff8001;
-        color: #ffffff;
-    }
-
-    .instagram {
-        text-decoration-color: #E4405F;
-    }
-
-    .instagram:hover {
-        background-color: #E4405F;
-        color: #ffffff;
-    }
-
-    .twitter {
-        text-decoration-color: #000000;
-    }
-
-    .twitter:hover {
-        background-color: #000000;
-        color: #ffffff;
-    }
-
-    .email {
-        text-decoration-color: #000000;
-    }
-
-    .email:hover {
-        background-color: #000000;
-        color: #ffffff;
-    }
-
-    html,
-    body,
-    a {
-        color: black;
-    }
+.dud {
+    mix-blend-mode: difference;
+    opacity: 100%;
 }
