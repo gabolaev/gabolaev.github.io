@@ -63,7 +63,7 @@ function paintHrefHovers() {
     });
 }
 
-reveal(".background")
+// reveal(".background")
 
 const text = document.querySelector(".text");
 text.style.color = shadeColorToAlmostWhite(activeColor, 0.75);
