@@ -1,29 +1,43 @@
+function adjustColor(col, amt) {
+
+    var usePound = false;
+
+    if (col[0] == "#") {
+        col = col.slice(1);
+        usePound = true;
+    }
+
+    var num = parseInt(col, 16);
+
+    var r = (num >> 16) + amt;
+
+    if (r > 255) r = 255;
+    else if (r < 0) r = 0;
+
+    var b = ((num >> 8) & 0x00FF) + amt;
+
+    if (b > 255) b = 255;
+    else if (b < 0) b = 0;
+
+    var g = (num & 0x0000FF) + amt;
+
+    if (g > 255) g = 255;
+    else if (g < 0) g = 0;
+
+    return (usePound ? "#" : "") + (g | (b << 8) | (r << 16)).toString(16);
+
+}
+
+function cleanHex(hex) {
+    return hex.replace(`0x`, `#`);
+}
+
 const colorSchemes = [
-    '0x002c4f',
-    '0x004B3D',
-    '0xA51C30',
     '0xFF183F',
     '0x03FF74',
     '0x045EFF'
 ];
 
 let activeColorScheme = Math.floor(Math.random() * colorSchemes.length);
-let activeColor = `#${colorSchemes[activeColorScheme].substring(2)}`;
-
-
-function shadeColorToAlmostWhite(hexColor, factor) {
-    hexColor = hexColor.replace(/^#/, '');
-  
-    const r = parseInt(hexColor.slice(0, 2), 16);
-    const g = parseInt(hexColor.slice(2, 4), 16);
-    const b = parseInt(hexColor.slice(4, 6), 16);
-  
-    // Calculate the new RGB values by adding the factor to each channel
-    const newR = r + (255 - r) * factor;
-    const newG = g + (255 - g) * factor;
-    const newB = b + (255 - b) * factor;
-  
-    // Convert the new RGB values back to hexadecimal
-    let res = `#${Math.round(newR).toString(16)}${Math.round(newG).toString(16)}${Math.round(newB).toString(16)}`;
-    return res
-}
+let activeColor = cleanHex(colorSchemes[activeColorScheme]);
+let activeColorLight = adjustColor(activeColor, 220);

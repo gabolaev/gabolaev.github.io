@@ -2,7 +2,7 @@ class TextScramble {
     constructor(el, color) {
         this.el = el;
         this.color = color;
-        this.shadedColor = shadeColorToAlmostWhite(color, 0.4);
+        this.shadedColor = adjustColor(color, 80);
         this.chars = `!"#$%&'()*+,-./:;<=>?@[\]^_{|}~ÆæøØ`;
         this.update = this.update.bind(this);
     }
@@ -49,7 +49,7 @@ class TextScramble {
 
                 if (!displayChar || randomValue < 0.1) {
                     displayChar = this.randomChar();
-                    this.queue[i].char = displayChar;
+                    this.queue[i].char = displayChar;   
                 }
 
                 output += `<span class="dud" style="color:${this.shadedColor};">${displayChar}</span>`;

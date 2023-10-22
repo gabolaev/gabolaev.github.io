@@ -17,7 +17,8 @@ at talon.one
 
 <a href="#summary" onclick="showLinks();">links</a>
 
-<a href=mailto:george@gabolaev.com>george@gabolaev.com</a>`
+<a href=mailto:george@gabolaev.com>george@gabolaev.com</a>
+`
 
 const phrases = [
     "hello",
@@ -59,14 +60,14 @@ const linksHrefed = `<a href='https://linkedin.com/in/gabolaev'>linkedin</a>
 function paintHrefHovers() {
     document.querySelectorAll('a').forEach((a) => {
         a.style.setProperty('--hover-background', activeColor);
-        a.style.setProperty('--hover-color', shadeColorToAlmostWhite(activeColor, 0.99));
+        a.style.setProperty('--hover-color', activeColorLight);
     });
 }
 
 reveal(".background")
 
 const text = document.querySelector(".text");
-text.style.color = shadeColorToAlmostWhite(activeColor, 0.86);
+text.style.color = activeColorLight;
 const fx = new TextScramble(text, activeColor);
 
 let counter = 0;
