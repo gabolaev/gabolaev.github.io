@@ -49,7 +49,7 @@ class TextScramble {
 
                 if (!displayChar || randomValue < 0.1) {
                     displayChar = this.randomChar();
-                    this.queue[i].char = displayChar;   
+                    this.queue[i].char = displayChar;
                 }
 
                 output += `<span class="dud" style="color:${this.shadedColor};">${displayChar}</span>`;

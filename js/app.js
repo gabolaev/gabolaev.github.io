@@ -29,9 +29,6 @@ const phrases = [
     "vk",
     "tinkoff",
     "and kuji podcast",
-    "wanna reach out?",
-    "it's @gabolaev everywhere",
-    "or george@gabolaev.com",
 ];
 
 const links = `linkedin
@@ -63,8 +60,6 @@ function paintHrefHovers() {
         a.style.setProperty('--hover-color', activeColorLight);
     });
 }
-
-reveal(".background")
 
 const text = document.querySelector(".text");
 text.style.color = activeColorLight;

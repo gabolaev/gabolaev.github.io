@@ -39,51 +39,71 @@ a:hover {
     color: #000000;
 }
 
-.background {
-    opacity: 0;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-}
-
-.background-text {
-    width: 100%;
-    height: 100%;
-    font-size: 10pt;
-    font-weight: 100;
-    margin: 0;
-    padding: 0;
+#bg::before {
     -webkit-user-select: none;
     user-select: none;
     pointer-events: none;
-    overflow: hidden;
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    opacity: 0.31; /* 31% opacity, expressed as a decimal */
-    mix-blend-mode: soft-light;
-    -webkit-mix-blend-mode: soft-light; /* For Safari */
-    color: white;
+    overflow: unset !important;
+    position: fixed !important
+}
+
+.container>* {
+    position: relative;
 }
 
 .container {
+    transform: translate3d(0, 0, 0);
     position: relative;
     height: 100%;
     width: 100%;
+    padding: 50pt;
     justify-content: center;
     align-items: center;
     display: flex;
 }
 
-.text {
-    text-align: center;
-    font-weight: 500;
-    font-size: 23px;
+:root {
+    --text-shadow: #0083bf;
+    --dud-shadow: #ff002e;
 }
 
-/* Vendor Prefix for mix-blend-mode */
+.text {
+    transform: translate3d(0, 0, 0);
+    text-align: center;
+    font-weight: 500;
+    font-size: 15pt;
+    filter: blur(0.5pt);
+    -webkit-filter: blur(0.5pt);
+    text-shadow:
+        0 0 4px var(--text-shadow),
+        0 0 11px var(--text-shadow),
+        0 0 19px var(--text-shadow),
+        0 0 40px var(--text-shadow),
+        0 0 80px var(--text-shadow),
+        0 0 90px var(--text-shadow),
+        0 0 100px var(--text-shadow),
+        0 0 150px var(--text-shadow);
+}
+
+@media only screen and (max-width: 768px) {
+    .text {
+        font-size: 13pt;
+    }
+}
+
 .dud {
+    transform: translate3d(0, 0, 0);
     mix-blend-mode: screen;
-    -webkit-mix-blend-mode: screen; /* For Safari */
-    opacity: 0.9; /* 90% opacity, expressed as a decimal */
+    -webkit-mix-blend-mode: screen;
+    /* For Safari */
+    opacity: 0.9;
+    text-shadow:
+        0 0 4px var(--dud-shadow),
+        0 0 11px var(--dud-shadow),
+        0 0 19px var(--dud-shadow),
+        0 0 40px var(--dud-shadow),
+        0 0 80px var(--dud-shadow),
+        0 0 90px var(--dud-shadow),
+        0 0 100px var(--dud-shadow),
+        0 0 150px var(--dud-shadow);
 }

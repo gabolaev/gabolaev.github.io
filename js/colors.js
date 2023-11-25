@@ -33,9 +33,10 @@ function cleanHex(hex) {
 }
 
 const colorSchemes = [
-    '0xFF183F',
-    '0x03FF74',
-    '0x045EFF'
+    // '0xFF183F',
+    // '0x03FF74',
+    '0xFFFFFF',
+    // '0x045EFF'
 ];
 
 let activeColorScheme = Math.floor(Math.random() * colorSchemes.length);
