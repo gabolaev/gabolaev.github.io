@@ -42,8 +42,7 @@ let activeColorLight = adjustColor(activeColor, 220);
 
 
 const lightningSchemes = [
-    ['#ff0000', '#00e5ff'],
-    ['#0083bf', '#ff0000'],
+    ['#0083bf', '#ff0020'],
     ['#0083bf', '#ff4df2'],
 ]
 

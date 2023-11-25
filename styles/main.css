@@ -40,6 +40,7 @@ a:hover {
 }
 
 #bg::before {
+    transform: translate3d(0, 0, 0);
     -webkit-user-select: none;
     user-select: none;
     pointer-events: none;
@@ -76,8 +77,7 @@ a:hover {
         0 0 40px var(--text-shadow),
         0 0 80px var(--text-shadow),
         0 0 90px var(--text-shadow),
-        0 0 100px var(--text-shadow),
-        0 0 150px var(--text-shadow);
+        0 0 100px var(--text-shadow);
 }
 
 @media only screen and (max-width: 768px) {
@@ -88,8 +88,6 @@ a:hover {
 
 .dud {
     transform: translate3d(0, 0, 0);
-    mix-blend-mode: screen;
-    -webkit-mix-blend-mode: screen;
     opacity: 1;
     text-shadow:
         0 0 4px var(--dud-shadow),
@@ -98,6 +96,5 @@ a:hover {
         0 0 40px var(--dud-shadow),
         0 0 80px var(--dud-shadow),
         0 0 90px var(--dud-shadow),
-        0 0 100px var(--dud-shadow),
-        0 0 150px var(--dud-shadow);
+        0 0 100px var(--dud-shadow);
 }
