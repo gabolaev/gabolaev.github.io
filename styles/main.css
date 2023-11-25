@@ -10,7 +10,7 @@ body {
     margin: 0;
     padding: 0;
     font-variant-ligatures: normal;
-    background-color: #000000;
+    background-color: #000007;
     justify-content: center;
     align-items: center;
     display: flex;
@@ -62,11 +62,6 @@ a:hover {
     display: flex;
 }
 
-:root {
-    --text-shadow: #0083bf;
-    --dud-shadow: #ff002e;
-}
-
 .text {
     transform: translate3d(0, 0, 0);
     text-align: center;
@@ -95,8 +90,7 @@ a:hover {
     transform: translate3d(0, 0, 0);
     mix-blend-mode: screen;
     -webkit-mix-blend-mode: screen;
-    /* For Safari */
-    opacity: 0.9;
+    opacity: 1;
     text-shadow:
         0 0 4px var(--dud-shadow),
         0 0 11px var(--dud-shadow),

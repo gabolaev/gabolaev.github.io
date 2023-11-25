@@ -33,12 +33,21 @@ function cleanHex(hex) {
 }
 
 const colorSchemes = [
-    // '0xFF183F',
-    // '0x03FF74',
     '0xFFFFFF',
-    // '0x045EFF'
 ];
 
 let activeColorScheme = Math.floor(Math.random() * colorSchemes.length);
 let activeColor = cleanHex(colorSchemes[activeColorScheme]);
 let activeColorLight = adjustColor(activeColor, 220);
+
+
+const lightningSchemes = [
+    ['#ff0000', '#00e5ff'],
+    ['#0083bf', '#ff0000'],
+    ['#0083bf', '#ff4df2'],
+]
+
+const activeLightningSchemeId = Math.floor(Math.random() * lightningSchemes.length);
+
+document.querySelector(':root').style.setProperty('--text-shadow', lightningSchemes[activeLightningSchemeId][0]);
+document.querySelector(':root').style.setProperty('--dud-shadow', lightningSchemes[activeLightningSchemeId][1]);
