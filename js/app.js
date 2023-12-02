@@ -1,7 +1,7 @@
 const summary = `george gabolaev
 
 software engineer
-at talon.one
+at docker
 
 
 
@@ -11,7 +11,7 @@ george@gabolaev.com`
 const summaryHrefed = `george gabolaev
 
 software engineer
-at talon.one
+at docker
 
 
 
@@ -24,10 +24,10 @@ const phrases = [
     "hello",
     "my name is george",
     "i'm a software engineer",
-    "at talon.one",
+    "at docker",
     "previously i worked at:",
     "vk",
-    "tinkoff",
+    "tinkoff, talon.one",
     "and kuji podcast",
 ];
 
