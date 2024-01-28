@@ -25,10 +25,6 @@ const phrases = [
     "my name is george",
     "i'm a software engineer",
     "at docker",
-    "previously i worked at:",
-    "vk",
-    "tinkoff, talon.one",
-    "and kuji podcast",
 ];
 
 const links = `linkedin
@@ -36,7 +32,6 @@ instagram
 github
 telegram
 spotify
-twitter
 letterboxd
 
 
@@ -47,7 +42,6 @@ const linksHrefed = `<a href='https://linkedin.com/in/gabolaev'>linkedin</a>
     <a href='https://github.com/gabolaev'>github</a>
     <a href='https://t.me/gabolaev'>telegram</a>
     <a href='https://open.spotify.com/user/gabolaev'>spotify</a>
-    <a href='https://x.com/rugbeehead'>twitter</a>
     <a href='https://letterboxd.com/gabolaev'>letterboxd</a>
 
 
