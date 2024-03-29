@@ -28,7 +28,6 @@ const phrases = [
 ];
 
 const links = `linkedin
-instagram
 github
 telegram
 spotify
@@ -38,7 +37,6 @@ letterboxd
 back`
 
 const linksHrefed = `<a href='https://linkedin.com/in/gabolaev'>linkedin</a>
-    <a href='https://instagram.com/gabolaev'>instagram</a>
     <a href='https://github.com/gabolaev'>github</a>
     <a href='https://t.me/gabolaev'>telegram</a>
     <a href='https://open.spotify.com/user/gabolaev'>spotify</a>
