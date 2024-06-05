@@ -22,8 +22,8 @@ class TextScramble {
         this.queue = Array.from({ length }, (_, i) => {
             const from = oldText[i] || "";
             const to = newText[i] || "";
-            const start = Math.floor(Math.random() * 50);
-            const end = start + Math.floor(Math.random() * 80);
+            const start = Math.floor(Math.random() * 20);
+            const end = start + Math.floor(Math.random() * 30);
             return { from, to, start, end, char: null };
         });
 
@@ -47,7 +47,7 @@ class TextScramble {
             } else if (this.frame >= start) {
                 let displayChar = char;
 
-                if (!displayChar || randomValue < 0.1) {
+                if (!displayChar || randomValue < 0.2) {
                     displayChar = this.randomChar();
                     this.queue[i].char = displayChar;
                 }

@@ -66,7 +66,7 @@ const next = () => {
         return
     }
     fx.setText(phrases[counter]).then(() => {
-        setTimeout(next, 1000);
+        setTimeout(next, 700);
     });
     counter = (counter + 1);
 };
