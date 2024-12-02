@@ -22,9 +22,7 @@ at docker
 
 const phrases = [
     "hello",
-    "my name is george",
-    "i'm a software engineer",
-    "at docker",
+    "i'm george",
 ];
 
 const links = `linkedin
