@@ -1,100 +1,231 @@
-@font-face {
-    font-family: "FiraCode";
-    src: url("../fonts/FiraCode-VariableFont_wght.ttf") format('truetype');
+/* Gallery wall. As little design as possible: one photograph, one label. */
+
+:root {
+    --paper: #fff;
+    --ink: #111110;
+    --quiet: #8c8c88;
+
+    --work-width: 64rem;
+    --ease: cubic-bezier(.2, .8, .25, 1);
+
+    /* One size for the whole label. Hierarchy comes from weight and colour
+       only, which is the least a piece of type can be asked to do. */
+    --text: .9375rem;
+
+    /* height the photo must leave for the strip, label and padding */
+    --reserve: 16rem;
 }
 
-html,
+* {
+    box-sizing: border-box;
+}
+
+html {
+    -webkit-text-size-adjust: 100%;
+    background: var(--paper);
+    /* the wall is white by intent, in every appearance setting */
+    color-scheme: light;
+}
+
 body {
-    font-family: 'FiraCode', monospace;
-    height: 100%;
     margin: 0;
-    padding: 0;
-    font-variant-ligatures: normal;
-    background-color: #000007;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    overflow: hidden;
-}
-
-a {
-    text-decoration: underline;
-    color: inherit;
-}
-
-a:hover {
-    background: #ffffff;
-    background: var(--hover-background);
-    color: #000000;
-    color: var(--hover-color);
-}
-
-::-moz-selection {
-    background: #ffffff;
-    color: #000000;
+    min-height: 100vh;
+    min-height: 100svh;
+    background: var(--paper);
+    color: var(--ink);
+    /* Helvetica Neue leads deliberately: -apple-system would otherwise win
+       on Apple hardware and substitute SF Pro. Arial carries Windows. */
+    font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
+    font-size: var(--text);
+    line-height: 1.45;
+    letter-spacing: -.006em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
-    background: #ffffff;
-    color: #000000;
+    background: var(--ink);
+    color: var(--paper);
 }
 
-#bg::before {
-    transform: translate3d(0, 0, 0);
-    -webkit-user-select: none;
-    user-select: none;
-    pointer-events: none;
-    overflow: unset !important;
-    position: fixed !important
+:focus-visible {
+    outline: 1px solid var(--ink);
+    outline-offset: 3px;
 }
 
-.container>* {
-    position: relative;
-}
+/* ── Wall ─────────────────────────────────────────────────────────── */
 
-.container {
-    transform: translate3d(0, 0, 0);
-    position: relative;
-    height: 100%;
-    width: 100%;
-    padding: 50pt;
-    justify-content: center;
-    align-items: center;
+.wall {
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: clamp(1.5rem, 6vw, 4rem);
     display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.text {
-    transform: translate3d(0, 0, 0);
-    text-align: center;
+/* ── The work ─────────────────────────────────────────────────────── */
+
+/* Each photo keeps its own proportions, the way works differ on a wall.
+   --ar comes from the manifest before the image loads, so the frame and the
+   label never shift; tools/build.py keeps the default in sync with the no-JS
+   fallback photo. --reserve is the strip, label and the wall's
+   padding, so the photo claims every pixel of height that is left. */
+.work {
+    --ar: 1.5000;
+    width: min(100%, var(--work-width), calc(var(--ar) * (100vh - var(--reserve))));
+    width: min(100%, var(--work-width), calc(var(--ar) * (100svh - var(--reserve))));
+    margin: 0;
+}
+
+.work__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: var(--ar);
+    object-fit: cover;
+    background: #f0f0ef;
+}
+
+/* with JS off the script never sets src, so the empty frame collapses and
+   the <noscript> photo stands in for it on its own */
+#work-img:not([src]) {
+    display: none;
+}
+
+/* Colours sampled from the photo itself: one flush band, set apart from the
+   print so it reads as a note on it rather than part of the image. */
+.strip {
+    display: flex;
+    height: 1rem;
+    margin-top: .85rem;
+}
+
+.strip i {
+    flex: 1;
+}
+
+.strip:empty {
+    display: none;
+}
+
+/* ── The label ────────────────────────────────────────────────────── */
+
+.label {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 1.6rem;
+}
+
+.label__id {
+    display: flex;
+    flex-direction: column;
+}
+
+.label__name {
     font-weight: 500;
-    font-size: 15pt;
-    filter: blur(0.3pt);
-    -webkit-filter: blur(0.3pt);
-    text-shadow:
-        0 0 4px var(--text-shadow),
-        0 0 11px var(--text-shadow),
-        0 0 19px var(--text-shadow),
-        0 0 40px var(--text-shadow),
-        0 0 80px var(--text-shadow),
-        0 0 90px var(--text-shadow),
-        0 0 100px var(--text-shadow);
+    color: var(--ink);
 }
 
-@media only screen and (max-width: 768px) {
-    .text {
-        font-size: 13pt;
+.label__role,
+.label__links a {
+    color: var(--quiet);
+}
+
+.label__links {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.label__links a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-decoration-color: transparent;
+    text-underline-offset: .32em;
+    transition: color .18s var(--ease), text-decoration-color .18s var(--ease);
+}
+
+.label__links a:hover {
+    color: var(--ink);
+    text-decoration-color: currentColor;
+}
+
+/* ── Entrance ─────────────────────────────────────────────────────── */
+
+/* Order: name, role, company — pause — strip, links — pause — photograph.
+   Opacity only, nothing moves.
+
+   The label runs on a fixed schedule off .is-armed, which the script sets
+   during parse, so none of it waits on the ~1 MB image. Only the photograph
+   waits: .is-ready lands once it has decoded, and no sooner than its slot in
+   the sequence, so a cached image cannot jump the queue. */
+
+@media (prefers-reduced-motion: no-preference) {
+    @keyframes fade {
+        from { opacity: 0 }
+        to { opacity: 1 }
+    }
+
+    .work.is-armed .work__img {
+        opacity: 0;
+    }
+
+    .work.is-armed .label__name,
+    .work.is-armed .label__role,
+    .work.is-armed .label__links a,
+    .work.is-armed .strip i {
+        animation: fade .55s var(--ease) both;
+    }
+
+    /* 1 — who */
+    .work.is-armed .label__name { animation-delay: .10s }
+    .work.is-armed .label__role:nth-child(2) { animation-delay: .24s }
+    .work.is-armed .label__role:nth-child(3) { animation-delay: .38s }
+
+    /* — pause — */
+
+    /* 2 — the strip */
+    .work.is-armed .strip i { animation-duration: .45s }
+    .work.is-armed .strip i:nth-child(1) { animation-delay: 1.30s }
+    .work.is-armed .strip i:nth-child(2) { animation-delay: 1.36s }
+    .work.is-armed .strip i:nth-child(3) { animation-delay: 1.42s }
+    .work.is-armed .strip i:nth-child(4) { animation-delay: 1.48s }
+    .work.is-armed .strip i:nth-child(5) { animation-delay: 1.54s }
+    .work.is-armed .strip i:nth-child(6) { animation-delay: 1.60s }
+
+    /* 3 — the links */
+    .work.is-armed .label__links a { animation-duration: .5s }
+    .work.is-armed .label__links a:nth-child(1) { animation-delay: 1.72s }
+    .work.is-armed .label__links a:nth-child(2) { animation-delay: 1.83s }
+    .work.is-armed .label__links a:nth-child(3) { animation-delay: 1.94s }
+    .work.is-armed .label__links a:nth-child(4) { animation-delay: 2.05s }
+
+    /* — pause — */
+
+    /* 4 — the photograph */
+    .work.is-ready .work__img {
+        animation: fade 1s var(--ease) both;
     }
 }
 
-.dud {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-    text-shadow:
-        0 0 4px var(--dud-shadow),
-        0 0 11px var(--dud-shadow),
-        0 0 19px var(--dud-shadow),
-        0 0 40px var(--dud-shadow),
-        0 0 80px var(--dud-shadow),
-        0 0 90px var(--dud-shadow),
-        0 0 100px var(--dud-shadow);
+/* ── Narrow ───────────────────────────────────────────────────────── */
+
+@media (max-width: 30rem) {
+    :root {
+        --text: .875rem;
+    }
+
+    .label {
+        gap: 1.25rem;
+    }
+}
+
+@media print {
+    .wall {
+        min-height: auto;
+        padding: 0;
+    }
 }

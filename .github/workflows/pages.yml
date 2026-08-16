@@ -1,0 +1,80 @@
+name: Build and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# let a running deploy finish rather than cancelling it half-published
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    # macOS only: tools/build.py shells out to sips and qlmanage
+    runs-on: macos-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Build images and manifest
+        run: python3 tools/build.py
+
+      # Parse the manifest rather than grepping it — an editor's formatter
+      # reflows "const G = [ ... ]" and a pattern match silently returns zero.
+      - name: Verify the build produced a usable site
+        run: |
+          python3 - <<'CHECK'
+          import json, pathlib, re, sys
+
+          html = pathlib.Path("index.html").read_text()
+          m = re.search(r"/\*photos\*/\s*const\s+G\s*=\s*(\[.*?\])\s*;/\*/photos\*/", html, re.S)
+          if not m:
+              sys.exit("::error::photo manifest markers missing from index.html")
+
+          photos = json.loads(m.group(1))
+          if not photos:
+              sys.exit("::error::photo manifest is empty")
+
+          missing = [p[0] for p in photos
+                     if not (pathlib.Path("img/gallery") / f"{p[0]}.jpg").exists()]
+          if missing:
+              sys.exit(f"::error::manifest references missing files: {missing}")
+
+          print(f"{len(photos)} photos, all present in img/gallery/")
+          CHECK
+
+      # Stage only what the site serves. Without this the 130 MB of originals
+      # in gallery/ would be published and counted against the Pages artifact.
+      - name: Stage site
+        run: |
+          mkdir -p _site
+          cp index.html _site/
+          cp CNAME _site/ 2>/dev/null || true
+          cp -R styles _site/
+          cp -R img _site/
+          du -sh _site
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
