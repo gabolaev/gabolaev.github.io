@@ -28,6 +28,8 @@ TMP = ROOT / "tools" / ".build"
 
 LONG_EDGE = 2400          # covers the ~1000 css px frame at 2x DPR
 QUALITY = 85
+THUMB_EDGE = 480          # contact-sheet cells are ~190 css px at most
+THUMB_QUALITY = 70
 SWATCHES = 6              # colours in the strip under the photo
 EXTS = {".jpg", ".jpeg", ".png", ".heic"}
 
@@ -127,17 +129,23 @@ def derive():
         seen.add(p.stem.lower())
         chosen.append(p)
 
-    photos = []
+    photos, keep = [], set()
     for p in chosen:
-        out = DST / f"{p.stem}.jpg"
-        if not out.exists() or out.stat().st_mtime < p.stat().st_mtime:
-            sips("-Z", LONG_EDGE, "-s", "format", "jpeg",
-                 "-s", "formatOptions", QUALITY, p, "--out", out)
-            print(f"  {p.name} -> {out.name} ({out.stat().st_size // 1024} KB)")
-        photos.append((p.stem, *dimensions(out), palette(out)))
+        full = DST / f"{p.stem}.jpg"
+        thumb = DST / f"{p.stem}-t.jpg"
+        keep.update({full.name, thumb.name})
 
+        for out, edge, q in ((full, LONG_EDGE, QUALITY), (thumb, THUMB_EDGE, THUMB_QUALITY)):
+            if not out.exists() or out.stat().st_mtime < p.stat().st_mtime:
+                sips("-Z", edge, "-s", "format", "jpeg",
+                     "-s", "formatOptions", q, p, "--out", out)
+                print(f"  {p.name} -> {out.name} ({out.stat().st_size // 1024} KB)")
+
+        photos.append((p.stem, *dimensions(full), palette(full)))
+
+    # match on full filename, not stem — "<stem>-t" is not a stale photo
     for stale in DST.glob("*.jpg"):
-        if stale.stem not in {s for s, _, _, _ in photos}:
+        if stale.name not in keep:
             stale.unlink()
             print(f"  removed stale {stale.name}")
 
@@ -244,9 +252,13 @@ def main():
         print("  (the previous img/og.jpg is kept)", file=sys.stderr)
 
     sizes = [(DST / f"{s}.jpg").stat().st_size for s, _, _, _ in photos]
-    print(f"\n{len(photos)} photos, {sum(sizes) // 1024 // 1024} MB in img/gallery/, "
-          f"~{sum(sizes) // len(sizes) // 1024} KB per visit "
-          f"(largest {max(sizes) // 1024} KB)")
+    thumbs = [(DST / f"{s}-t.jpg").stat().st_size for s, _, _, _ in photos]
+    print(f"\n{len(photos)} photos, "
+          f"{(sum(sizes) + sum(thumbs)) // 1024 // 1024} MB in img/gallery/")
+    print(f"  first paint  ~{sum(sizes) // len(sizes) // 1024} KB "
+          f"(one photo, largest {max(sizes) // 1024} KB)")
+    print(f"  contact sheet ~{sum(thumbs) // 1024} KB total "
+          f"({sum(thumbs) // len(thumbs) // 1024} KB average, lazy-loaded)")
 
 
 if __name__ == "__main__":

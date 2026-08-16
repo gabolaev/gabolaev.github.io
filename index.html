@@ -40,41 +40,120 @@
 
             <!-- Photos live in gallery/ as originals; img/gallery/ holds the
                  web-sized copies. Run tools/build.py after changing them. -->
-            <img class="work__img" id="work-img" alt="">
+            <button class="work__open" id="open-sheet" type="button"
+                aria-label="Browse all photographs" aria-haspopup="dialog">
+                <img class="work__img" id="work-img" alt="">
+            </button>
             <noscript><img class="work__img" src="img/gallery/A6402253.jpg" alt=""></noscript>
             <div class="strip" id="strip" aria-hidden="true"></div>
             <script>
-                /*photos*/const G=[["A6402253",2400,1600,["#0c171d","#0c222a","#272b27","#4e4731","#927a34","#d6c088"]],["DSC00003",2400,1600,["#010605","#0e1a19","#1c2624","#2e3633","#635f59","#968b83"]],["DSC00009",1600,2400,["#030e0d","#122521","#682c2e","#09533d","#a46f78","#c09aa1"]],["DSC00010",2400,1603,["#151315","#271d22","#34323b","#6c4c4a","#ae6f5c","#efbda6"]],["DSC00017",2400,1470,["#0c0a0a","#2e201f","#5e2617","#4b3c3b","#785b52","#b79489"]],["DSC00028",2400,1600,["#060b08","#191d17","#343831","#6f6757","#ad9b82","#dcc8a8"]],["DSC00033",2400,1600,["#000502","#051d0c","#1a351b","#425e55","#377b8e","#6798ad"]],["DSC00037",2400,1600,["#063c42","#115d6b","#277489","#4689a4","#689ab6","#91b1c9"]],["DSC00040",2400,1599,["#0d2112","#1f3219","#384121","#5f5622","#626960","#92877d"]],["DSC00045",2400,1600,["#051107","#15270e","#333f16","#595d26","#8e8020","#b0ac74"]],["DSC00054",1600,2400,["#0c1b1d","#1a393e","#665043","#36839f","#719bb6","#b7afad"]],["DSC00055",2400,1600,["#080f11","#161e1e","#384f4b","#855443","#997469","#d28a67"]],["G9804804",2400,1600,["#111816","#25302f","#435052","#7c6208","#637276","#979f9b"]],["G9805475",2400,1616,["#1c1610","#3e2b1b","#5b4128","#765535","#93683f","#be8855"]],["G9805505",2400,1600,["#13221f","#28372d","#1c595c","#415242","#67755d","#73d2e0"]],["G9805527",2400,1600,["#000000","#0b0e0e","#4d5e51","#9f4d0d","#84896d","#de7d18"]],["G9805586",2400,1600,["#040302","#2e0c06","#1e211b","#d51411","#613a24","#c98856"]],["G9805605",2400,1600,["#010000","#0e0b07","#1d1911","#3a3a2e","#727363","#d1d7c8"]],["G9805625",2400,1600,["#090502","#13140f","#2e1d10","#2f3a33","#637a6e","#e5ead6"]],["G9805632",2400,1600,["#070a0a","#1e1f1a","#673111","#374b46","#52827c","#95a891"]],["G9805691",2400,1600,["#034b7d","#803946","#305377","#6a6c88","#aa6475","#cf9dad"]]];/*/photos*/
+                /*photos*/const G=[["A6402253",2400,1600,["#0c171d","#0c222a","#272b27","#4e4731","#927a34","#d6c088"]],["DSC00003",2400,1600,["#010605","#0e1a19","#1c2624","#2e3633","#635f59","#968b83"]],["DSC00009",1600,2400,["#030e0d","#122521","#682c2e","#09533d","#a46f78","#c09aa1"]],["DSC00010",2400,1603,["#151315","#271d22","#34323b","#6c4c4a","#ae6f5c","#efbda6"]],["DSC00017",2400,1470,["#0c0a0a","#2e201f","#5e2617","#4b3c3b","#785b52","#b79489"]],["DSC00028",2400,1600,["#060b08","#191d17","#343831","#6f6757","#ad9b82","#dcc8a8"]],["DSC00033",2400,1600,["#000502","#051d0c","#1a351b","#425e55","#377b8e","#6798ad"]],["DSC00037",2400,1600,["#063c42","#115d6b","#277489","#4689a4","#689ab6","#91b1c9"]],["DSC00040",2400,1599,["#0e2212","#253215","#1a3824","#3d4321","#5f5a2f","#817d74"]],["DSC00045",2400,1600,["#051107","#15270e","#333f16","#595d26","#8e8020","#b0ac74"]],["DSC00054",1600,2400,["#0c1b1d","#1a393e","#665043","#36839f","#719bb6","#b7afad"]],["DSC00055",2400,1600,["#080f11","#161e1e","#384f4b","#855443","#997469","#d28a67"]],["G9804804",2400,1600,["#111816","#25302f","#435052","#7c6208","#637276","#979f9b"]],["G9805475",2400,1616,["#1c1610","#3e2b1b","#5b4128","#765535","#93683f","#be8855"]],["G9805505",2400,1600,["#13221f","#28372d","#1c595c","#415242","#67755d","#73d2e0"]],["G9805527",2400,1600,["#000000","#0b0e0e","#4d5e51","#9f4d0d","#84896d","#de7d18"]],["G9805586",2400,1600,["#040302","#2e0c06","#1e211b","#d51411","#613a24","#c98856"]],["G9805605",2400,1600,["#010000","#0e0b07","#1d1911","#3a3a2e","#727363","#d1d7c8"]],["G9805625",2400,1600,["#090502","#13140f","#2e1d10","#2f3a33","#637a6e","#e5ead6"]],["G9805632",2400,1600,["#070a0a","#1e1f1a","#673111","#374b46","#52827c","#95a891"]],["G9805691",2400,1600,["#034b7d","#803946","#305377","#6a6c88","#aa6475","#cf9dad"]]];/*/photos*/
                 (function () {
-                    var p = G[Math.random() * G.length | 0];
-                    if (!p) return;
-
                     var img = document.getElementById('work-img'),
-                        work = img.parentNode;
+                        work = img.parentNode.parentNode,
+                        strip = document.getElementById('strip'),
+                        sheet = document.getElementById('sheet'),
+                        grid = document.getElementById('grid'),
+                        opener = document.getElementById('open-sheet'),
+                        closer = document.getElementById('close-sheet'),
+                        current = null;
 
-                    work.style.setProperty('--ar', (p[1] / p[2]).toFixed(4));
-                    work.classList.add('is-armed');
-
-                    var strip = document.getElementById('strip');
-                    for (var i = 0; i < p[3].length; i++) {
-                        strip.appendChild(document.createElement('i'))
-                            .style.background = p[3][i];
+                    function paintStrip(palette) {
+                        strip.textContent = '';
+                        for (var i = 0; i < palette.length; i++) {
+                            strip.appendChild(document.createElement('i'))
+                                .style.background = palette[i];
+                        }
                     }
+
+                    function show(p) {
+                        current = p;
+                        work.style.setProperty('--ar', (p[1] / p[2]).toFixed(4));
+                        img.width = p[1];
+                        img.height = p[2];
+                        img.src = 'img/gallery/' + p[0] + '.jpg';
+                        paintStrip(p[3]);
+                    }
+
+                    // ── first paint ──────────────────────────────────────
+                    var first = G[Math.random() * G.length | 0];
+                    if (!first) return;
+
+                    work.classList.add('is-armed');
 
                     // the label is already running; the photo comes last, so
                     // hold it for its slot even when the image is cached
                     var t0 = Date.now();
                     function reveal() {
                         setTimeout(function () { work.classList.add('is-ready'); },
-                            Math.max(0, 2350 - (Date.now() - t0)));
+                            Math.max(0, 2750 - (Date.now() - t0)));
                     }
                     img.addEventListener('load', reveal);
                     img.addEventListener('error', reveal);
 
-                    img.width = p[1];
-                    img.height = p[2];
-                    img.src = 'img/gallery/' + p[0] + '.jpg';
+                    show(first);
                     if (img.complete) reveal();
+
+                    // ── the contact sheet ────────────────────────────────
+                    var built = false;
+
+                    function buildGrid() {
+                        if (built) return;
+                        built = true;
+                        G.forEach(function (p) {
+                            var cell = document.createElement('button');
+                            cell.className = 'thumb';
+                            cell.type = 'button';
+                            cell.title = p[0];
+
+                            var t = document.createElement('img');
+                            t.src = 'img/gallery/' + p[0] + '-t.jpg';
+                            t.alt = '';
+                            t.loading = 'lazy';
+                            t.decoding = 'async';
+
+                            cell.appendChild(t);
+                            cell.addEventListener('click', function () { pick(p); });
+                            grid.appendChild(cell);
+                        });
+                    }
+
+                    function open() {
+                        buildGrid();
+                        sheet.hidden = false;
+                        document.body.classList.add('is-locked');
+                        closer.focus();
+                    }
+
+                    function close() {
+                        sheet.hidden = true;
+                        document.body.classList.remove('is-locked');
+                        opener.focus();
+                    }
+
+                    function pick(p) {
+                        close();
+                        if (p[0] === current[0]) return;
+                        // the entrance keyframes still hold opacity via their
+                        // fill mode, and would outrank an inline style; is-live
+                        // drops them so the swap can cross-fade instead
+                        work.classList.add('is-live');
+                        img.style.opacity = 0;
+                        img.addEventListener('load', function once() {
+                            img.removeEventListener('load', once);
+                            img.style.opacity = 1;
+                        });
+                        show(p);
+                    }
+
+                    opener.addEventListener('click', open);
+                    closer.addEventListener('click', close);
+                    sheet.addEventListener('click', function (e) {
+                        if (e.target === sheet) close();
+                    });
+                    document.addEventListener('keydown', function (e) {
+                        if (e.key === 'Escape' && !sheet.hidden) close();
+                    });
                 })();
             </script>
 
@@ -95,6 +174,13 @@
 
         </figure>
     </main>
+
+    <!-- The contact sheet: every photograph, built on first open. -->
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true"
+        aria-label="All photographs" hidden>
+        <button class="sheet__close" id="close-sheet" type="button">Close</button>
+        <div class="grid" id="grid"></div>
+    </div>
 </body>
 
 </html>

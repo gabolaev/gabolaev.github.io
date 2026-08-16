@@ -78,6 +78,19 @@ body {
     margin: 0;
 }
 
+/* the photograph is a button so the contact sheet is keyboard-reachable */
+.work__open {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: zoom-in;
+}
+
 .work__img {
     display: block;
     width: 100%;
@@ -85,6 +98,20 @@ body {
     aspect-ratio: var(--ar);
     object-fit: cover;
     background: #f0f0ef;
+}
+
+/* a swap cross-fades; see is-live in index.html for why the class is needed */
+.work.is-live .work__img {
+    animation: none;
+    transition: opacity .45s var(--ease);
+}
+
+.work__open:hover .work__img {
+    opacity: .82;
+}
+
+.work.is-armed .work__open:hover .work__img {
+    opacity: inherit;
 }
 
 /* with JS off the script never sets src, so the empty frame collapses and
@@ -107,6 +134,80 @@ body {
 
 .strip:empty {
     display: none;
+}
+
+/* ── The contact sheet ────────────────────────────────────────────── */
+
+body.is-locked {
+    overflow: hidden;
+}
+
+.sheet[hidden] {
+    display: none;
+}
+
+.sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    overflow-y: auto;
+    padding: clamp(3.25rem, 6vw, 4.5rem) clamp(1rem, 4vw, 3rem) clamp(2rem, 5vw, 4rem);
+    background: var(--paper);
+}
+
+.sheet__close {
+    position: absolute;
+    top: clamp(1.15rem, 3vw, 1.9rem);
+    right: clamp(1rem, 4vw, 3rem);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    font: inherit;
+    color: var(--quiet);
+    cursor: pointer;
+    transition: color .18s var(--ease);
+}
+
+.sheet__close:hover {
+    color: var(--ink);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(clamp(6.5rem, 12vw, 11rem), 1fr));
+    gap: clamp(.4rem, 1vw, .85rem);
+    max-width: 100rem;
+    margin: 0 auto;
+}
+
+.thumb {
+    display: block;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    -webkit-appearance: none;
+    appearance: none;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.thumb img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: #f0f0ef;
+    opacity: .86;
+    transition: opacity .18s var(--ease);
+}
+
+.thumb:hover img,
+.thumb:focus-visible img {
+    opacity: 1;
 }
 
 /* ── The label ────────────────────────────────────────────────────── */
