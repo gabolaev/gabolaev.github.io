@@ -13,6 +13,7 @@ macOS only: uses the built-in sips and qlmanage.
 """
 
 import base64
+import hashlib
 import pathlib
 import re
 import struct
@@ -152,6 +153,24 @@ def derive():
     return photos
 
 
+def stamp_stylesheet(html):
+    """Version the stylesheet link with a content hash.
+
+    GitHub Pages serves assets with cache-control: max-age=14400, and the CDN
+    honours it — so a CSS change can sit behind a stale copy for four hours
+    while the HTML (max-age=600) updates immediately. A hash in the query
+    makes each revision its own URL.
+    """
+    css = ROOT / "styles" / "main.css"
+    digest = hashlib.sha1(css.read_bytes()).hexdigest()[:10]
+    stamped, hits = re.subn(r'(href="styles/main\.css)(?:\?v=[0-9a-f]+)?(")',
+                            rf'\g<1>?v={digest}\g<2>', html)
+    if not hits:
+        sys.exit("::error::stylesheet link not found in index.html")
+    print(f"  stylesheet: ?v={digest}")
+    return stamped
+
+
 def write_manifest(photos):
     entries = ",".join(
         '["%s",%d,%d,[%s]]' % (s, w, h, ",".join(f'"{c}"' for c in pal))
@@ -170,6 +189,8 @@ def write_manifest(photos):
     new = re.sub(r'(<noscript><img class="work__img" src="img/gallery/)[^"]+(")',
                  rf"\g<1>{first}.jpg\g<2>", new)
     new = re.sub(r"(\.work\{--ar:)[0-9.]+(\})", rf"\g<1>{fw / fh:.4f}\g<2>", new)
+
+    new = stamp_stylesheet(new)
 
     INDEX.write_text(new)
     print(f"  manifest: {len(photos)} photos, fallback {first}.jpg")

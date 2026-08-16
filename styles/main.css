@@ -119,14 +119,6 @@ body {
     transition: opacity .45s var(--ease);
 }
 
-.work__open:hover .work__img {
-    opacity: .82;
-}
-
-.work.is-armed .work__open:hover .work__img {
-    opacity: inherit;
-}
-
 /* with JS off the script never sets src, so the empty frame collapses and
    the <noscript> photo stands in for it on its own */
 #work-img:not([src]) {
