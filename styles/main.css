@@ -100,7 +100,8 @@ body {
     background: none;
     -webkit-appearance: none;
     appearance: none;
-    cursor: zoom-in;
+    position: relative;
+    cursor: pointer;
 }
 
 .work__img {
@@ -146,6 +147,50 @@ body {
 
 .strip:empty {
     display: none;
+}
+
+/* The pointer becomes the word. difference blending keeps it legible over
+   any photograph without a plate behind it — white on dark, dark on light.
+   Fine pointers only; a coarse pointer has no hover to reveal it. */
+
+.cue {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    color: #fff;
+    mix-blend-mode: difference;
+    white-space: nowrap;
+    transition: opacity .28s var(--ease);
+}
+
+/* scaled on an inner span so it does not fight the positioning transform
+   the script writes onto .cue every frame */
+.cue__in {
+    display: block;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    letter-spacing: -.005em;
+    transform: scale(.86);
+    transition: transform .34s var(--ease);
+}
+
+.cue.is-on .cue__in {
+    transform: scale(1);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .cue.is-on {
+        opacity: 1;
+    }
+
+    /* only once the script is driving it — otherwise a JS failure would
+       leave the photo with no cursor at all */
+    body.has-cue .work__open {
+        cursor: none;
+    }
 }
 
 /* ── The contact sheet ────────────────────────────────────────────── */

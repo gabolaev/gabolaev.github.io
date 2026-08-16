@@ -129,6 +129,10 @@
                         var byKeyboard = false;
 
                         function open() {
+                            if (cue) {
+                                cue.classList.remove('is-on');
+                                document.body.classList.remove('has-cue');
+                            }
                             buildGrid();
                             sheet.classList.add('is-open');
                             sheet.setAttribute('aria-hidden', 'false');
@@ -158,6 +162,47 @@
                                 img.style.opacity = 1;
                             });
                             show(p);
+                        }
+
+                        // ── the pointer label ───────────────────────
+                        var cue = document.getElementById('cue');
+                        var fine = !window.matchMedia
+                            || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+                        if (cue && fine) {
+                            var still = window.matchMedia
+                                && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                            var ease = still ? 1 : .2;
+                            var tx = 0, ty = 0, x = 0, y = 0, chasing = false;
+
+                            function chase() {
+                                x += (tx - x) * ease;
+                                y += (ty - y) * ease;
+                                cue.style.transform =
+                                    'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)'
+                                    + ' translate(-50%,-50%)';
+                                if (chasing) requestAnimationFrame(chase);
+                            }
+
+                            opener.addEventListener('pointermove', function (e) {
+                                tx = e.clientX;
+                                ty = e.clientY;
+                            });
+
+                            opener.addEventListener('pointerenter', function (e) {
+                                if (e.pointerType !== 'mouse') return;
+                                tx = x = e.clientX;
+                                ty = y = e.clientY;
+                                document.body.classList.add('has-cue');
+                                cue.classList.add('is-on');
+                                if (!chasing) { chasing = true; chase(); }
+                            });
+
+                            opener.addEventListener('pointerleave', function () {
+                                chasing = false;
+                                cue.classList.remove('is-on');
+                                document.body.classList.remove('has-cue');
+                            });
                         }
 
                         opener.addEventListener('click', function (e) {
@@ -201,6 +246,8 @@
 
         </figure>
     </main>
+
+    <span class="cue" id="cue" aria-hidden="true"><span class="cue__in">Index</span></span>
 
     <!-- The contact sheet: every photograph, built on first open. -->
     <div class="sheet" id="sheet" role="dialog" aria-modal="true"
