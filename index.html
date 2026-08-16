@@ -119,23 +119,30 @@
                                 t.loading = 'lazy';
                                 t.decoding = 'async';
 
+                                cell.style.setProperty('--i', grid.children.length);
                                 cell.appendChild(t);
                                 cell.addEventListener('click', function () { pick(p); });
                                 grid.appendChild(cell);
                             });
                         }
 
+                        var byKeyboard = false;
+
                         function open() {
                             buildGrid();
-                            sheet.hidden = false;
-                            document.body.classList.add('is-locked');
-                            closer.focus();
+                            sheet.classList.add('is-open');
+                            sheet.setAttribute('aria-hidden', 'false');
+                            document.body.classList.add('is-browsing');
+                            requestAnimationFrame(function () { closer.focus(); });
                         }
 
                         function close() {
-                            sheet.hidden = true;
-                            document.body.classList.remove('is-locked');
-                            opener.focus();
+                            sheet.classList.remove('is-open');
+                            sheet.setAttribute('aria-hidden', 'true');
+                            document.body.classList.remove('is-browsing');
+                            // only hand focus back for keyboard users; doing it
+                            // after a click leaves a focus ring round the photo
+                            if (byKeyboard) opener.focus();
                         }
 
                         function pick(p) {
@@ -153,13 +160,19 @@
                             show(p);
                         }
 
-                        opener.addEventListener('click', open);
+                        opener.addEventListener('click', function (e) {
+                            byKeyboard = e.detail === 0;   // 0 => Enter/Space
+                            open();
+                        });
                         closer.addEventListener('click', close);
                         sheet.addEventListener('click', function (e) {
                             if (e.target === sheet) close();
                         });
                         document.addEventListener('keydown', function (e) {
-                            if (e.key === 'Escape' && !sheet.hidden) close();
+                            if (e.key === 'Escape' && sheet.classList.contains('is-open')) {
+                                byKeyboard = true;
+                                close();
+                            }
                         });
                     }
 
@@ -191,7 +204,7 @@
 
     <!-- The contact sheet: every photograph, built on first open. -->
     <div class="sheet" id="sheet" role="dialog" aria-modal="true"
-        aria-label="All photographs" hidden>
+        aria-label="All photographs" aria-hidden="true">
         <button class="sheet__close" id="close-sheet" type="button">Close</button>
         <div class="grid" id="grid"></div>
     </div>
