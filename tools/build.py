@@ -216,7 +216,9 @@ def build_og(photos):
     lead, right = 19, px + ph_w
     b64 = base64.b64encode((DST / f"{stem}.jpg").read_bytes()).decode()
 
-    def txt(x, y, s, size=11, weight=400, fill=QUIET, anchor="start", track=1.56):
+    # weights and tracking mirror .label__* in main.css so the card and the
+    # page are set the same way
+    def txt(x, y, s, size=11, weight=500, fill=QUIET, anchor="start", track=1.56):
         return (f'<text x="{x}" y="{y}" font-family="{SANS}" font-size="{size}" '
                 f'font-weight="{weight}" fill="{fill}" text-anchor="{anchor}" '
                 f'letter-spacing="{track}">{s}</text>')
@@ -234,7 +236,7 @@ def build_og(photos):
                    f'width="{chip + .5:.2f}" height="{strip_h}" fill="{colour}"/>')
 
     svg += [
-        txt(px, ly, "George Gabolaev", size=17, weight=500, fill=INK, track=-.19),
+        txt(px, ly, "George Gabolaev", size=17, weight=700, fill=INK, track=-.37),
         txt(px, ly + 22, "SENIOR SOFTWARE ENGINEER"),
         txt(px, ly + 22 + lead, "DOCKER, INC"),
     ]

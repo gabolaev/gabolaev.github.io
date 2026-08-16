@@ -1,19 +1,23 @@
-/* Gallery wall. As little design as possible: one photograph, one label. */
-
 :root {
     --paper: #fff;
     --ink: #111110;
     --quiet: #8c8c88;
+    --frame: #f0f0ef;
 
     --work-width: 64rem;
     --ease: cubic-bezier(.2, .8, .25, 1);
 
-    /* One size for the whole label. Hierarchy comes from weight and colour
-       only, which is the least a piece of type can be asked to do. */
     --text: .9375rem;
 
-    /* height the photo must leave for the strip, label and padding */
     --reserve: 17.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --paper: #0e0e0d;
+        --ink: #f2f2ef;
+        --frame: #1b1b19;
+    }
 }
 
 * {
@@ -23,8 +27,7 @@
 html {
     -webkit-text-size-adjust: 100%;
     background: var(--paper);
-    /* the wall is white by intent, in every appearance setting */
-    color-scheme: light;
+    color-scheme: light dark;
 }
 
 body {
@@ -33,8 +36,6 @@ body {
     min-height: 100svh;
     background: var(--paper);
     color: var(--ink);
-    /* Helvetica Neue leads deliberately: -apple-system would otherwise win
-       on Apple hardware and substitute SF Pro. Arial carries Windows. */
     font-family: "Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif;
     font-size: var(--text);
     line-height: 1.45;
@@ -53,9 +54,6 @@ body {
     outline-offset: 3px;
 }
 
-/* Safari draws its own rounded ring on a focused button, which reads as a
-   frame around the photograph once the sheet is closed by mouse. Suppress it
-   and define a deliberate one for keyboard focus only. */
 .work__open:focus {
     outline: none;
 }
@@ -64,8 +62,6 @@ body {
     outline: 1px solid var(--quiet);
     outline-offset: 5px;
 }
-
-/* ── Wall ─────────────────────────────────────────────────────────── */
 
 .wall {
     min-height: 100vh;
@@ -76,13 +72,6 @@ body {
     justify-content: center;
 }
 
-/* ── The work ─────────────────────────────────────────────────────── */
-
-/* Each photo keeps its own proportions, the way works differ on a wall.
-   --ar comes from the manifest before the image loads, so the frame and the
-   label never shift; tools/build.py keeps the default in sync with the no-JS
-   fallback photo. --reserve is the strip, label and the wall's
-   padding, so the photo claims every pixel of height that is left. */
 .work {
     --ar: 1.5000;
     width: min(100%, var(--work-width), calc(var(--ar) * (100vh - var(--reserve))));
@@ -90,7 +79,6 @@ body {
     margin: 0;
 }
 
-/* the photograph is a button so the contact sheet is keyboard-reachable */
 .work__open {
     display: block;
     width: 100%;
@@ -110,23 +98,18 @@ body {
     height: auto;
     aspect-ratio: var(--ar);
     object-fit: cover;
-    background: #f0f0ef;
+    background: var(--frame);
 }
 
-/* a swap cross-fades; see is-live in index.html for why the class is needed */
 .work.is-live .work__img {
     animation: none;
     transition: opacity .45s var(--ease);
 }
 
-/* with JS off the script never sets src, so the empty frame collapses and
-   the <noscript> photo stands in for it on its own */
 #work-img:not([src]) {
     display: none;
 }
 
-/* Colours sampled from the photo itself: one flush band, set apart from the
-   print so it reads as a note on it rather than part of the image. */
 .strip {
     display: flex;
     height: 1rem;
@@ -140,13 +123,6 @@ body {
 .strip:empty {
     display: none;
 }
-
-/* ── The contact sheet ────────────────────────────────────────────── */
-
-/* Opening it is a crossfade between two views: the wall fades out, the index
-   fades in, both centred on the same white ground. visibility rides along on
-   a delayed transition so the sheet is genuinely inert when closed — not just
-   transparent — without losing the fade. */
 
 .wall {
     transition: opacity .4s var(--ease);
@@ -200,8 +176,6 @@ body.is-browsing {
     color: var(--ink);
 }
 
-/* auto margins rather than align-items:center — centred when it fits, and
-   still scrollable from the top when it does not */
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(clamp(6.5rem, 12vw, 10rem), 1fr));
@@ -228,7 +202,7 @@ body.is-browsing {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    background: #f0f0ef;
+    background: var(--frame);
     opacity: .84;
     transition: opacity .18s var(--ease);
 }
@@ -239,14 +213,11 @@ body.is-browsing {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    /* the cells land in turn, --i is set as each is built */
     .sheet.is-open .thumb {
         animation: fade .45s var(--ease) both;
         animation-delay: calc(.15s + var(--i, 0) * 22ms);
     }
 }
-
-/* ── The label ────────────────────────────────────────────────────── */
 
 .label {
     display: flex;
@@ -262,12 +233,14 @@ body.is-browsing {
 }
 
 .label__name {
-    font-weight: 500;
+    font-weight: 700;
+    letter-spacing: -.022em;
     color: var(--ink);
 }
 
 .label__role,
 .label__links a {
+    font-weight: 500;
     color: var(--quiet);
 }
 
@@ -290,20 +263,15 @@ body.is-browsing {
     text-decoration-color: currentColor;
 }
 
-/* ── Entrance ─────────────────────────────────────────────────────── */
-
-/* Order: name, role, company — pause — strip, links — pause — photograph.
-   Opacity only, nothing moves.
-
-   The label runs on a fixed schedule off .is-armed, which the script sets
-   during parse, so none of it waits on the ~1 MB image. Only the photograph
-   waits: .is-ready lands once it has decoded, and no sooner than its slot in
-   the sequence, so a cached image cannot jump the queue. */
-
 @media (prefers-reduced-motion: no-preference) {
     @keyframes fade {
-        from { opacity: 0 }
-        to { opacity: 1 }
+        from {
+            opacity: 0
+        }
+
+        to {
+            opacity: 1
+        }
     }
 
     .work.is-armed .work__img {
@@ -313,42 +281,72 @@ body.is-browsing {
     .work.is-armed .label__name,
     .work.is-armed .label__role,
     .work.is-armed .label__links a,
-    .work.is-armed .strip i {
-        animation: fade .55s var(--ease) both;
+    .work.is-armed .strip i,
+    .work.is-ready .work__img {
+        animation: fade .5s var(--ease) both;
     }
 
-    /* 1 — who */
-    .work.is-armed .label__name { animation-delay: .10s }
-    .work.is-armed .label__role:nth-child(2) { animation-delay: .24s }
-    .work.is-armed .label__role:nth-child(3) { animation-delay: .38s }
+    .work.is-armed .label__name {
+        animation-delay: 0s
+    }
 
-    /* — pause — */
+    .work.is-armed .label__role:nth-child(2) {
+        animation-delay: .08s
+    }
 
-    /* 2 — the strip */
-    .work.is-armed .strip i { animation-duration: .45s }
-    .work.is-armed .strip i:nth-child(1) { animation-delay: 0.65s }
-    .work.is-armed .strip i:nth-child(2) { animation-delay: 0.71s }
-    .work.is-armed .strip i:nth-child(3) { animation-delay: 0.77s }
-    .work.is-armed .strip i:nth-child(4) { animation-delay: 0.83s }
-    .work.is-armed .strip i:nth-child(5) { animation-delay: 0.89s }
-    .work.is-armed .strip i:nth-child(6) { animation-delay: 0.95s }
+    .work.is-armed .label__role:nth-child(3) {
+        animation-delay: .16s
+    }
 
-    /* 3 — the links */
-    .work.is-armed .label__links a { animation-duration: .5s }
-    .work.is-armed .label__links a:nth-child(1) { animation-delay: 1.72s }
-    .work.is-armed .label__links a:nth-child(2) { animation-delay: 1.83s }
-    .work.is-armed .label__links a:nth-child(3) { animation-delay: 1.94s }
-    .work.is-armed .label__links a:nth-child(4) { animation-delay: 2.05s }
+    .work.is-armed .strip i {
+        animation-duration: .4s
+    }
 
-    /* — pause — */
+    .work.is-armed .strip i:nth-child(1) {
+        animation-delay: .24s
+    }
 
-    /* 4 — the photograph */
+    .work.is-armed .strip i:nth-child(2) {
+        animation-delay: .29s
+    }
+
+    .work.is-armed .strip i:nth-child(3) {
+        animation-delay: .34s
+    }
+
+    .work.is-armed .strip i:nth-child(4) {
+        animation-delay: .39s
+    }
+
+    .work.is-armed .strip i:nth-child(5) {
+        animation-delay: .44s
+    }
+
+    .work.is-armed .strip i:nth-child(6) {
+        animation-delay: .49s
+    }
+
+    .work.is-armed .label__links a:nth-child(1) {
+        animation-delay: .56s
+    }
+
+    .work.is-armed .label__links a:nth-child(2) {
+        animation-delay: .62s
+    }
+
+    .work.is-armed .label__links a:nth-child(3) {
+        animation-delay: .68s
+    }
+
+    .work.is-armed .label__links a:nth-child(4) {
+        animation-delay: .74s
+    }
+
     .work.is-ready .work__img {
-        animation: fade 1s var(--ease) both;
+        animation-duration: .9s;
+        animation-delay: 0s;
     }
 }
-
-/* ── Narrow ───────────────────────────────────────────────────────── */
 
 @media (max-width: 30rem) {
     :root {
@@ -361,6 +359,7 @@ body.is-browsing {
 }
 
 @media (prefers-reduced-motion: reduce) {
+
     .wall,
     .sheet {
         transition: none;
