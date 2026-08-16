@@ -24,7 +24,7 @@
     <meta name="theme-color" content="#ffffff">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🧤</text></svg>">
-    <link rel="stylesheet" href="styles/main.css?v=34f3bf4d7d">
+    <link rel="stylesheet" href="styles/main.css?v=1d763f61c8">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E990JJRW29"></script>
     <script>
@@ -53,8 +53,7 @@
                     var img = document.getElementById('work-img'),
                         work = img.parentNode.parentNode,
                         strip = document.getElementById('strip'),
-                        current = null,
-                        shown = false;
+                        current = null;
 
                     function paintStrip(palette) {
                         strip.textContent = '';
@@ -83,10 +82,8 @@
                     // hold it for its slot even when the image is cached
                     var t0 = Date.now();
                     function reveal() {
-                        setTimeout(function () {
-                            work.classList.add('is-ready');
-                            shown = true;
-                        }, Math.max(0, 2750 - (Date.now() - t0)));
+                        setTimeout(function () { work.classList.add('is-ready'); },
+                            Math.max(0, 2750 - (Date.now() - t0)));
                     }
                     img.addEventListener('load', reveal);
                     img.addEventListener('error', reveal);
@@ -132,10 +129,6 @@
                         var byKeyboard = false;
 
                         function open() {
-                            if (cue) {
-                                cue.classList.remove('is-on');
-                                document.body.classList.remove('has-cue');
-                            }
                             buildGrid();
                             sheet.classList.add('is-open');
                             sheet.setAttribute('aria-hidden', 'false');
@@ -165,47 +158,6 @@
                                 img.style.opacity = 1;
                             });
                             show(p);
-                        }
-
-                        // ── the pointer label ───────────────────────
-                        var cue = document.getElementById('cue');
-                        var fine = !window.matchMedia
-                            || window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
-                        if (cue && fine) {
-                            var still = window.matchMedia
-                                && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-                            var ease = still ? 1 : .2;
-                            var tx = 0, ty = 0, x = 0, y = 0, chasing = false;
-
-                            function chase() {
-                                x += (tx - x) * ease;
-                                y += (ty - y) * ease;
-                                cue.style.transform =
-                                    'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,0)'
-                                    + ' translate(-50%,-50%)';
-                                if (chasing) requestAnimationFrame(chase);
-                            }
-
-                            opener.addEventListener('pointermove', function (e) {
-                                tx = e.clientX;
-                                ty = e.clientY;
-                            });
-
-                            opener.addEventListener('pointerenter', function (e) {
-                                if (e.pointerType !== 'mouse' || !shown) return;
-                                tx = x = e.clientX;
-                                ty = y = e.clientY;
-                                document.body.classList.add('has-cue');
-                                cue.classList.add('is-on');
-                                if (!chasing) { chasing = true; chase(); }
-                            });
-
-                            opener.addEventListener('pointerleave', function () {
-                                chasing = false;
-                                cue.classList.remove('is-on');
-                                document.body.classList.remove('has-cue');
-                            });
                         }
 
                         opener.addEventListener('click', function (e) {
@@ -249,8 +201,6 @@
 
         </figure>
     </main>
-
-    <span class="cue" id="cue" aria-hidden="true"><span class="cue__in">More</span></span>
 
     <!-- The contact sheet: every photograph, built on first open. -->
     <div class="sheet" id="sheet" role="dialog" aria-modal="true"
