@@ -19,6 +19,7 @@
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
 
+    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#ffffff">
     <link rel="icon"
@@ -52,10 +53,6 @@
                     var img = document.getElementById('work-img'),
                         work = img.parentNode.parentNode,
                         strip = document.getElementById('strip'),
-                        sheet = document.getElementById('sheet'),
-                        grid = document.getElementById('grid'),
-                        opener = document.getElementById('open-sheet'),
-                        closer = document.getElementById('close-sheet'),
                         current = null;
 
                     function paintStrip(palette) {
@@ -75,7 +72,7 @@
                         paintStrip(p[3]);
                     }
 
-                    // ── first paint ──────────────────────────────────────
+                    // ── first paint, at parse time ───────────────────────
                     var first = G[Math.random() * G.length | 0];
                     if (!first) return;
 
@@ -95,65 +92,82 @@
                     if (img.complete) reveal();
 
                     // ── the contact sheet ────────────────────────────────
-                    var built = false;
+                    // Its markup sits after this script in the document, so
+                    // those elements do not exist yet while this runs. Wire
+                    // them only once the DOM has finished parsing.
+                    function initSheet() {
+                        var sheet = document.getElementById('sheet'),
+                            grid = document.getElementById('grid'),
+                            opener = document.getElementById('open-sheet'),
+                            closer = document.getElementById('close-sheet'),
+                            built = false;
 
-                    function buildGrid() {
-                        if (built) return;
-                        built = true;
-                        G.forEach(function (p) {
-                            var cell = document.createElement('button');
-                            cell.className = 'thumb';
-                            cell.type = 'button';
-                            cell.title = p[0];
+                        if (!sheet || !grid || !opener || !closer) return;
 
-                            var t = document.createElement('img');
-                            t.src = 'img/gallery/' + p[0] + '-t.jpg';
-                            t.alt = '';
-                            t.loading = 'lazy';
-                            t.decoding = 'async';
+                        function buildGrid() {
+                            if (built) return;
+                            built = true;
+                            G.forEach(function (p) {
+                                var cell = document.createElement('button');
+                                cell.className = 'thumb';
+                                cell.type = 'button';
+                                cell.title = p[0];
 
-                            cell.appendChild(t);
-                            cell.addEventListener('click', function () { pick(p); });
-                            grid.appendChild(cell);
+                                var t = document.createElement('img');
+                                t.src = 'img/gallery/' + p[0] + '-t.jpg';
+                                t.alt = '';
+                                t.loading = 'lazy';
+                                t.decoding = 'async';
+
+                                cell.appendChild(t);
+                                cell.addEventListener('click', function () { pick(p); });
+                                grid.appendChild(cell);
+                            });
+                        }
+
+                        function open() {
+                            buildGrid();
+                            sheet.hidden = false;
+                            document.body.classList.add('is-locked');
+                            closer.focus();
+                        }
+
+                        function close() {
+                            sheet.hidden = true;
+                            document.body.classList.remove('is-locked');
+                            opener.focus();
+                        }
+
+                        function pick(p) {
+                            close();
+                            if (p[0] === current[0]) return;
+                            // the entrance keyframes still hold opacity via
+                            // their fill mode and would outrank an inline
+                            // style; is-live drops them so this can cross-fade
+                            work.classList.add('is-live');
+                            img.style.opacity = 0;
+                            img.addEventListener('load', function once() {
+                                img.removeEventListener('load', once);
+                                img.style.opacity = 1;
+                            });
+                            show(p);
+                        }
+
+                        opener.addEventListener('click', open);
+                        closer.addEventListener('click', close);
+                        sheet.addEventListener('click', function (e) {
+                            if (e.target === sheet) close();
+                        });
+                        document.addEventListener('keydown', function (e) {
+                            if (e.key === 'Escape' && !sheet.hidden) close();
                         });
                     }
 
-                    function open() {
-                        buildGrid();
-                        sheet.hidden = false;
-                        document.body.classList.add('is-locked');
-                        closer.focus();
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', initSheet);
+                    } else {
+                        initSheet();
                     }
-
-                    function close() {
-                        sheet.hidden = true;
-                        document.body.classList.remove('is-locked');
-                        opener.focus();
-                    }
-
-                    function pick(p) {
-                        close();
-                        if (p[0] === current[0]) return;
-                        // the entrance keyframes still hold opacity via their
-                        // fill mode, and would outrank an inline style; is-live
-                        // drops them so the swap can cross-fade instead
-                        work.classList.add('is-live');
-                        img.style.opacity = 0;
-                        img.addEventListener('load', function once() {
-                            img.removeEventListener('load', once);
-                            img.style.opacity = 1;
-                        });
-                        show(p);
-                    }
-
-                    opener.addEventListener('click', open);
-                    closer.addEventListener('click', close);
-                    sheet.addEventListener('click', function (e) {
-                        if (e.target === sheet) close();
-                    });
-                    document.addEventListener('keydown', function (e) {
-                        if (e.key === 'Escape' && !sheet.hidden) close();
-                    });
                 })();
             </script>
 
