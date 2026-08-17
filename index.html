@@ -25,7 +25,7 @@
     <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🧤</text></svg>">
-    <link rel="stylesheet" href="styles/main.css?v=c47f6c6830">
+    <link rel="stylesheet" href="styles/main.css?v=8a05e7c236">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E990JJRW29"></script>
     <script>
@@ -39,6 +39,10 @@
 <body>
     <main class="wall">
         <figure class="work">
+            <div class="meta" aria-hidden="true">
+                <span>click on the photo</span>
+                <span id="count"></span>
+            </div>
             <button class="work__open" id="open-sheet" type="button" aria-label="Browse all photographs"
                 aria-haspopup="dialog">
                 <img class="work__img" id="work-img" alt="">
@@ -51,6 +55,7 @@
                     var img = document.getElementById('work-img'),
                         work = img.parentNode.parentNode,
                         strip = document.getElementById('strip'),
+                        count = document.getElementById('count'),
                         current = null;
 
                     function paintStrip(palette) {
@@ -67,6 +72,7 @@
                         img.width = p[1];
                         img.height = p[2];
                         img.src = 'img/gallery/' + p[0] + '.jpg';
+                        count.textContent = '# ' + (G.indexOf(p) + 1) + ' / ' + G.length;
                         paintStrip(p[3]);
                     }
 
@@ -185,7 +191,7 @@
     </main>
 
     <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="All photographs" aria-hidden="true">
-        <button class="sheet__close" id="close-sheet" type="button">Close</button>
+        <button class="sheet__close" id="close-sheet" type="button">close</button>
         <div class="grid" id="grid"></div>
     </div>
 </body>

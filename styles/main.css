@@ -4,12 +4,14 @@
     --quiet: #8c8c88;
     --frame: #f0f0ef;
 
+    --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
     --work-width: 64rem;
     --ease: cubic-bezier(.2, .8, .25, 1);
 
     --text: .9375rem;
 
-    --reserve: 17.5rem;
+    --reserve: 19.5rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -110,6 +112,26 @@ body {
     display: none;
 }
 
+/* The marginalia type: the notes around the frame and the sheet's own
+   control are the same small voice. Monospaced, so the frame count keeps its
+   width as the number changes and the row never shifts under it. */
+.meta,
+.sheet__close {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .02em;
+}
+
+/* The pair that flanks the top of the frame: the invitation on the left,
+   the count on the right. Nothing sits on the photograph itself. */
+.meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: .85rem;
+    color: var(--quiet);
+}
+
 .strip {
     display: flex;
     height: 1rem;
@@ -166,7 +188,6 @@ body.is-browsing {
     background: none;
     -webkit-appearance: none;
     appearance: none;
-    font: inherit;
     color: var(--quiet);
     cursor: pointer;
     transition: color .18s var(--ease);
@@ -278,6 +299,7 @@ body.is-browsing {
         opacity: 0;
     }
 
+    .work.is-armed .meta span,
     .work.is-armed .label__name,
     .work.is-armed .label__role,
     .work.is-armed .label__links a,
