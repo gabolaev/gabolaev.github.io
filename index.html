@@ -25,7 +25,7 @@
     <meta name="theme-color" content="#0e0e0d" media="(prefers-color-scheme: dark)">
     <link rel="icon"
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🧤</text></svg>">
-    <link rel="stylesheet" href="styles/main.css?v=6c19d4be80">
+    <link rel="stylesheet" href="styles/main.css?v=b3e70f52a9">
 
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-E990JJRW29"></script>
     <script>
@@ -40,7 +40,6 @@
     <main class="wall">
         <figure class="work">
             <div class="meta" aria-hidden="true">
-                <span>click on the photo</span>
                 <span id="count"></span>
             </div>
             <button class="work__open" id="open-sheet" type="button" aria-label="Browse all photographs"
@@ -76,7 +75,13 @@
                         paintStrip(p[3]);
                     }
 
-                    var first = G[Math.random() * G.length | 0];
+                    // Held back from the draw, by name rather than by position so that
+                    // adding a photograph cannot quietly bench a different one. It is
+                    // still in the sheet; it just never opens the page.
+                    var benched = 'DSC05527',
+                        pool = G.filter(function (p) { return p[0] !== benched; });
+
+                    var first = pool[Math.random() * pool.length | 0];
                     if (!first) return;
 
                     work.classList.add('is-armed');

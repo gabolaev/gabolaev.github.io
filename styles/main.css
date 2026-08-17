@@ -122,12 +122,11 @@ body {
     letter-spacing: .02em;
 }
 
-/* The pair that flanks the top of the frame: the invitation on the left,
-   the count on the right. Nothing sits on the photograph itself. */
+/* The count, kept to the top right of the frame. Nothing sits on the
+   photograph itself. */
 .meta {
     display: flex;
-    justify-content: space-between;
-    gap: 1rem;
+    justify-content: flex-end;
     margin-bottom: .85rem;
     color: var(--quiet);
 }
