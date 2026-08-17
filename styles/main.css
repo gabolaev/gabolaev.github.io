@@ -295,17 +295,24 @@ body.is-browsing {
         }
     }
 
-    .work.is-armed .work__img {
+    /* The notes above the frame wait on the photograph, not on the page: they
+       describe a picture, so they cannot arrive before it has. */
+    .work.is-armed .work__img,
+    .work.is-armed .meta span {
         opacity: 0;
     }
 
-    .work.is-armed .meta span,
     .work.is-armed .label__name,
     .work.is-armed .label__role,
     .work.is-armed .label__links a,
     .work.is-armed .strip i,
-    .work.is-ready .work__img {
+    .work.is-ready .work__img,
+    .work.is-ready .meta span {
         animation: fade .5s var(--ease) both;
+    }
+
+    .work.is-ready .meta span {
+        animation-delay: .2s
     }
 
     .work.is-armed .label__name {
